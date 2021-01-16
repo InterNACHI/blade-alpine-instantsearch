@@ -1,0 +1,37 @@
+{
+	"name": "internachi/blade-alpine-instantsearch",
+	"description": "Algolia instant search as Blade/Alpine.js components",
+	"keywords": [
+		"laravel",
+		"algolia",
+		"instantsearch"
+	],
+	"type": "library",
+	"license": "MIT",
+	"autoload": {
+		"psr-4": {
+			"InterNACHI\\BladeInstantSearch\\": "src/"
+		}
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"InterNACHI\\BladeInstantSearch\\Tests\\": "tests/"
+		}
+	},
+	"minimum-stability": "stable",
+	"extra": {
+		"laravel": {
+			"providers": [
+				"InterNACHI\\BladeInstantSearch\\Providers\\BladeInstantSearchProvider"
+			]
+		}
+	},
+	"require": {
+		"php": ">=7.4",
+		"illuminate/view": "^8.0"
+	},
+	"require-dev": {
+		"orchestra/testbench": "^6.0",
+		"demo/vendor/phpunit/phpunit": "^9.0"
+	}
+}
