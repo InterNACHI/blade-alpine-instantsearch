@@ -1,0 +1,21 @@
+{
+  "name": "@internachi/blade-alpine-instantsearch",
+  "version": "1.0.0",
+  "license": "MIT",
+  "scripts": {
+    "build": "yarn run build-root; yarn run build-algolia; yarn run build-algolia-alpine; yarn run build-alpine",
+    "build-root": "microbundle -i src/root.js -o dist/root.js --f iife --define process.env=production --no-sourcemap --name=BladeAlpineInstantSearch --globals=algoliasearch,instantsearch",
+    "build-algolia": "microbundle -i src/root-algolia.js -o dist/root-algolia.js --f iife --define process.env=production --no-sourcemap --name=BladeAlpineInstantSearch --external=none",
+    "build-algolia-alpine": "microbundle -i src/root-algolia-alpine.js -o dist/root-algolia-alpine.js --f iife --define process.env=production --no-sourcemap --name=BladeAlpineInstantSearch --external=none",
+    "build-alpine": "microbundle -i src/root-alpine.js -o dist/root-alpine.js --f iife --define process.env=production --no-sourcemap --name=BladeAlpineInstantSearch --external=none --globals=algoliasearch,instantsearch",
+    "dev": "microbundle watch --no-compress --define process.env=development -i src/root.js -o dist/index.js --f iife --no-sourcemap --name=BladeAlpineInstantSearch --globals=algoliasearch,instantsearch"
+  },
+  "devDependencies": {
+    "microbundle": "^0.13.0"
+  },
+  "dependencies": {
+    "algoliasearch": "^4.8.3",
+    "alpinejs": "^2.8.0",
+    "instantsearch.js": "^4.11.0"
+  }
+}

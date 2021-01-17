@@ -1,4 +1,4 @@
-<div id="$id">
+<div id="{{ $id }}">
 	<label for="{{ $id }}--input" class="block text-sm font-medium text-gray-700">
 		Search
 	</label>

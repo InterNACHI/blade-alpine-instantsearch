@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e395d29933661ba6adbf6a63c9a51adf",
+    "content-hash": "317c841a4c7bde247d3d9f1ac210bad4",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -857,11 +857,16 @@
         },
         {
             "name": "internachi/blade-alpine-instantsearch",
-            "version": "dev-master",
+            "version": "dev-main",
             "dist": {
                 "type": "path",
-                "url": "./package",
-                "reference": "a5bb79205215b08fa540bab81217f6b5dd0a1d3d"
+                "url": "..",
+                "reference": "067762f21d98a3449dfc2347129ebcbdb091c577"
+            },
+            "archive": {
+                "exclude": [
+                    "/demo"
+                ]
             },
             "require": {
                 "illuminate/view": "^8.0",
@@ -5078,9 +5083,7 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {
-        "internachi/blade-alpine-instantsearch": 20
-    },
+    "stability-flags": [],
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {

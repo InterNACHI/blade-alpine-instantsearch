@@ -10,7 +10,7 @@
     "repositories": [
         {
             "type": "path",
-            "url": "./package/",
+            "url": "../",
             "options": {
                 "symlink": true
             }
@@ -22,7 +22,7 @@
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
-        "internachi/blade-alpine-instantsearch": "dev-master",
+        "internachi/blade-alpine-instantsearch": "*",
         "laravel/framework": "^8.12"
     },
     "require-dev": {

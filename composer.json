@@ -33,5 +33,10 @@
 	"require-dev": {
 		"orchestra/testbench": "^6.0",
 		"demo/vendor/phpunit/phpunit": "^9.0"
+	},
+	"archive": {
+		"exclude": [
+			"/demo"
+		]
 	}
 }

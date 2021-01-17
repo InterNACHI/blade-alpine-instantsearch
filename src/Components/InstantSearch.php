@@ -4,7 +4,7 @@ namespace InterNACHI\BladeInstantSearch\Components;
 
 use Illuminate\Support\HtmlString;
 use Illuminate\View\Component;
-use InterNACHI\BladeInstantSearch\Support\ContextStack;
+use InterNACHI\BladeInstantSearch\BladeInstantSearch;
 
 class InstantSearch extends Component
 {
@@ -18,16 +18,16 @@ class InstantSearch extends Component
 	
 	public array $widgets = [];
 	
-	protected ContextStack $stack;
+	protected BladeInstantSearch $helper;
 	
 	public static function generateId(): string
 	{
 		return '__blade_alpine_instantsearch_'.static::$autoId++;
 	}
 	
-	public function __construct(ContextStack $stack, $applicationId, $searchKey, $indexName)
+	public function __construct(BladeInstantSearch $helper, $applicationId, $searchKey, $indexName)
 	{
-		$this->stack = $stack;
+		$this->helper = $helper;
 		
 		$this->applicationId = (string) $applicationId;
 		$this->searchKey = (string) $searchKey;
@@ -43,19 +43,17 @@ class InstantSearch extends Component
 	
 	public function render()
 	{
-		return view('instantsearch::context', [
-			'config' => $this->serializeConfig(),
-		]);
+		return view('instantsearch::context');
 	}
 	
 	public function resolveView()
 	{
-		$this->stack->push($this);
+		$this->helper->pushContext($this);
 		
-		return fn($data) => tap($this->render()->with($data), fn() => $this->stack->pop());
+		return fn($data) => tap($this->render()->with($data), fn() => $this->helper->popContext());
 	}
 	
-	protected function serializeConfig(): HtmlString
+	public function config(): HtmlString
 	{
 		$config = [
 			'id' => $this->applicationId,
@@ -65,5 +63,24 @@ class InstantSearch extends Component
 		];
 		
 		return new HtmlString(e(json_encode($config, JSON_THROW_ON_ERROR | JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT)));
+	}
+	
+	public function javascript(): HtmlString
+	{
+		// This let's us choose the correct pre-compiled JavaScript bundle depending
+		// on the user's config (i.e. root-algolia-alpine.js if all bundling is enabled).
+		$segments = [
+			'root',
+			config('instantsearch.bundle_algolia', true)
+				? 'algolia'
+				: null,
+			config('instantsearch.bundle_alpine', true)
+				? 'alpine'
+				: null,
+		];
+		
+		$filename = collect($segments)->filter()->implode('-');
+		
+		return new HtmlString('<script>'.file_get_contents($this->helper->path("js/dist/{$filename}.js")).'</script>');
 	}
 }

@@ -5,7 +5,7 @@ namespace InterNACHI\BladeInstantSearch\Components;
 use Illuminate\Container\Container;
 use Illuminate\Support\HtmlString;
 use Illuminate\View\Component;
-use InterNACHI\BladeInstantSearch\Support\ContextStack;
+use InterNACHI\BladeInstantSearch\BladeInstantSearch;
 
 abstract class ConnectedComponent extends Component
 {
@@ -62,7 +62,7 @@ abstract class ConnectedComponent extends Component
 	protected function currentContext() : InstantSearch
 	{
 		return Container::getInstance()
-			->make(ContextStack::class)
-			->current();
+			->make(BladeInstantSearch::class)
+			->currentContext();
 	}
 }

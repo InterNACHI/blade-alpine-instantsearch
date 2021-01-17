@@ -1,17 +1,5 @@
-@once
-	<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
-	<script
-		src="https://cdn.jsdelivr.net/npm/algoliasearch@4.5.1/dist/algoliasearch-lite.umd.js"
-		integrity="sha256-EXPXz4W6pQgfYY3yTpnDa3OH8/EPn16ciVsPQ/ypsjk="
-		crossorigin="anonymous"
-	></script>
-	<script
-		src="https://cdn.jsdelivr.net/npm/instantsearch.js@4.8.3/dist/instantsearch.production.min.js"
-		integrity="sha256-LAGhRRdtVoD6RLo2qDQsU2mp+XVSciKRC8XPOBWmofM="
-		crossorigin="anonymous"
-	></script>
-	<script>
-	window.BladeAlpineInstantSearch = function() {
+export default function factory(algoliasearch, instantsearch, connectors) {
+	return () => {
 		return {
 			search: '',
 			algolia: null,
@@ -28,6 +16,7 @@
 				this.algolia.addWidgets(widgets);
 				
 				setTimeout(() => this.algolia.start(), 1);
+				setTimeout(() => console.log(this.hits), 1000);
 			},
 			
 			getWidgetState(id, key, fallback = {}) {
@@ -47,9 +36,9 @@
 			},
 			
 			connectWidget(widget) {
-				let connector = `connect${widget.name}`;
+				let connector = `connect${ widget.name }`;
 				
-				return instantsearch.connectors[connector](this[connector].bind(this))(widget.config);
+				return connectors[connector](this[connector].bind(this))(widget.config);
 			},
 			
 			connectSearchBox(options, firstRender) {
@@ -71,11 +60,4 @@
 			},
 		};
 	};
-	</script>
-@endonce
-
-<div x-data="BladeAlpineInstantSearch()" x-init="init" data-config="{{ $config }}">
-	{{ $slot }}
-	<div id="searchbox"></div>
-	<div id="hits"></div>
-</div>
+};

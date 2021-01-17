@@ -32,8 +32,11 @@
 				<x-instantsearch-hits>
 					<div class="my-4 border p-4 shadow flex w-full">
 						<div>
-							<div x-text="hit.name" class="font-semibold text-lg mb-1"></div>
-							<div x-text="hit.description"></div>
+							<x-instantsearch-highlight 
+								attribute="name" 
+								class="font-semibold text-lg mb-1" 
+							/>
+							<x-instantsearch-highlight attribute="description" />
 						</div>
 						<div class="ml-auto">
 							<div x-text="hit.popularity" class="bg-gray-100 rounded-full px-4 py-1"></div>
