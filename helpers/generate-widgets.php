@@ -258,7 +258,7 @@ $config = collect($matches[1])
 		HTML;
 		
 		$class_file = realpath(__DIR__.'/../src/Components').'/'.$name.'.php';
-		$view_file = realpath(__DIR__.'/../resources/views').'/'.$view.'.php';
+		$view_file = realpath(__DIR__.'/../resources/views').'/'.$view.'.blade.php';
 		
 		if (file_exists($class_file)) {
 			echo "SKIPPING: $name\n\n$generated_class\n\n";
