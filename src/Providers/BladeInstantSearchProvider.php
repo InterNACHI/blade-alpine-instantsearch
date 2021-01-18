@@ -5,12 +5,23 @@ namespace InterNACHI\BladeInstantSearch\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\View\Compilers\BladeCompiler;
 use InterNACHI\BladeInstantSearch\BladeInstantSearch;
+use InterNACHI\BladeInstantSearch\Components\Breadcrumb;
+use InterNACHI\BladeInstantSearch\Components\ClearRefinements;
+use InterNACHI\BladeInstantSearch\Components\CurrentRefinements;
+use InterNACHI\BladeInstantSearch\Components\HierarchicalMenu;
 use InterNACHI\BladeInstantSearch\Components\Highlight;
 use InterNACHI\BladeInstantSearch\Components\Hit;
 use InterNACHI\BladeInstantSearch\Components\Hits;
 use InterNACHI\BladeInstantSearch\Components\InstantSearch;
+use InterNACHI\BladeInstantSearch\Components\Menu;
+use InterNACHI\BladeInstantSearch\Components\MenuSelect;
+use InterNACHI\BladeInstantSearch\Components\Pagination;
+use InterNACHI\BladeInstantSearch\Components\RangeSlider;
+use InterNACHI\BladeInstantSearch\Components\RatingMenu;
 use InterNACHI\BladeInstantSearch\Components\RefinementList;
 use InterNACHI\BladeInstantSearch\Components\SearchBox;
+use InterNACHI\BladeInstantSearch\Components\SortBy;
+use InterNACHI\BladeInstantSearch\Components\ToggleRefinement;
 
 class BladeInstantSearchProvider extends ServiceProvider
 {
@@ -38,11 +49,22 @@ class BladeInstantSearchProvider extends ServiceProvider
 		});
 		
 		$this->loadViewComponentsAs('instantsearch', [
-			SearchBox::class,
-			RefinementList::class,
-			Hits::class,
+			Breadcrumb::class,
+			ClearRefinements::class,
+			CurrentRefinements::class,
+			HierarchicalMenu::class,
 			Highlight::class,
 			Hit::class,
+			Hits::class,
+			Menu::class,
+			MenuSelect::class,
+			Pagination::class,
+			RangeSlider::class,
+			RatingMenu::class,
+			RefinementList::class,
+			SearchBox::class,
+			SortBy::class,
+			ToggleRefinement::class,
 		]);
 	}
 }

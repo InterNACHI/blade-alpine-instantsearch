@@ -37,27 +37,29 @@ export default function factory(algoliasearch, instantsearch, connectors) {
 			
 			connectWidget(widget) {
 				let connector = `connect${ widget.name }`;
+				let callback = connector in this
+					? this[connector].call(this, widget)
+					: (options) => this.widgetState[widget.id] = options;
 				
-				return connectors[connector](this[connector].bind(this))(widget.config);
+				return connectors[connector](callback)(widget.config);
 			},
 			
-			connectSearchBox(options, firstRender) {
-				let { query, refine } = options;
-				
-				if (firstRender) {
-					this.$watch('search', value => refine(value));
-				}
-				
-				this.search = query;
+			connectSearchBox(widget) {
+				return (options, firstRender) => {
+					let { query, refine } = options;
+					
+					if (firstRender) {
+						this.$watch('search', value => refine(value));
+					}
+					
+					this.search = query;
+				};
 			},
 			
-			connectHits(options) {
-				this.hits = options.hits;
+			connectHits(widget) {
+				return options => this.hits = options.hits;
 			},
 			
-			connectRefinementList(options) {
-				this.widgetState[options.widgetParams.id] = options;
-			},
 		};
 	};
 };

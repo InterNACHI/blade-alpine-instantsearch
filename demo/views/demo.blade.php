@@ -58,6 +58,11 @@
 				
 			</div>
 		</div>
+		
+		<div class="flex justify-center w-full my-6">
+			<x-instantsearch-pagination />
+		</div>
+		
 	</x-instantsearch>
 	
 </div>

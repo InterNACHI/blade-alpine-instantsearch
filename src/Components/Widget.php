@@ -30,8 +30,12 @@ abstract class Widget extends Component
 		return view('instantsearch::connected-component');
 	}
 	
-	public function widgetState(string $subkey = null, string $fallback = '{}'): HtmlString
+	public function widgetState(string $subkey = null, $fallback = '{}'): HtmlString
 	{
+		if (!is_string($fallback)) {
+			$fallback = json_encode($fallback);
+		}
+		
 		return new HtmlString("getWidgetState('{$this->id}', '{$subkey}', {$fallback})");
 	}
 	
