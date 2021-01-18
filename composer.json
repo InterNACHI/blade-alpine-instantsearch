@@ -36,7 +36,12 @@
 	},
 	"archive": {
 		"exclude": [
-			"/demo"
+			"/demo",
+			"/helpers",
+			"/tests",
+			"/js/src",
+			"/js/package.json",
+			"/js/yarn.lock"
 		]
 	}
 }
