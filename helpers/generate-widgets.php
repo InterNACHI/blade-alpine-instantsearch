@@ -267,6 +267,6 @@ $config = collect($matches[1])
 		}
 		
 		if (!file_exists($view_file)) {
-			file_put_contents($class_file, $generated_view);
+			file_put_contents($view_file, $generated_view);
 		}
 	});
