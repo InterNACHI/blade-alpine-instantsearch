@@ -2,7 +2,7 @@
 
 namespace InterNACHI\BladeInstantSearch\Components;
 
-class RefinementList extends ConnectedComponent
+class RefinementList extends Widget
 {
 	public function __construct($attribute, $operator = 'or', $id = null)
 	{

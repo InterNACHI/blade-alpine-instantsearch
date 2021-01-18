@@ -6,6 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\View\Compilers\BladeCompiler;
 use InterNACHI\BladeInstantSearch\BladeInstantSearch;
 use InterNACHI\BladeInstantSearch\Components\Highlight;
+use InterNACHI\BladeInstantSearch\Components\Hit;
 use InterNACHI\BladeInstantSearch\Components\Hits;
 use InterNACHI\BladeInstantSearch\Components\InstantSearch;
 use InterNACHI\BladeInstantSearch\Components\RefinementList;
@@ -41,6 +42,7 @@ class BladeInstantSearchProvider extends ServiceProvider
 			RefinementList::class,
 			Hits::class,
 			Highlight::class,
+			Hit::class,
 		]);
 	}
 }

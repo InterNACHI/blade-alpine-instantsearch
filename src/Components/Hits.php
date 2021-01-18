@@ -2,7 +2,7 @@
 
 namespace InterNACHI\BladeInstantSearch\Components;
 
-class Hits extends ConnectedComponent
+class Hits extends Widget
 {
 	public function render()
 	{

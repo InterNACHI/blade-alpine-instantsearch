@@ -2,6 +2,7 @@
 
 namespace InterNACHI\BladeInstantSearch\Components;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\HtmlString;
 use Illuminate\View\Component;
 use InterNACHI\BladeInstantSearch\BladeInstantSearch;
@@ -20,18 +21,14 @@ class InstantSearch extends Component
 	
 	protected BladeInstantSearch $helper;
 	
-	public static function generateId(): string
-	{
-		return '__blade_alpine_instantsearch_'.static::$autoId++;
-	}
-	
 	public function __construct(BladeInstantSearch $helper, $applicationId, $searchKey, $indexName)
 	{
 		$this->helper = $helper;
 		
 		$this->applicationId = (string) $applicationId;
 		$this->searchKey = (string) $searchKey;
-		$this->indexName = (string) $indexName;
+		
+		$this->setIndexName($indexName);
 	}
 	
 	public function addWidget($name, $id, array $config = []): self
@@ -82,5 +79,25 @@ class InstantSearch extends Component
 		$filename = collect($segments)->filter()->implode('-');
 		
 		return new HtmlString('<script>'.file_get_contents($this->helper->path("js/dist/{$filename}.js")).'</script>');
+	}
+	
+	protected function setIndexName($indexName)
+	{
+		// If we're passed the fully-qualified class name of a model that implements
+		// the Scout Searchable trait, we'll instantiate that model
+		if (
+			class_exists($indexName) 
+			&& is_subclass_of($indexName, Model::class, true)
+			&& method_exists($indexName, 'searchableAs')
+		) {
+			$indexName = new $indexName();
+		}
+		
+		// If we have a Model that implements the Scout `searchableAs()` method, use that
+		if ($indexName instanceof Model && method_exists($indexName, 'searchableAs')) {
+			$indexName = $indexName->searchableAs();
+		}
+		
+		$this->indexName = (string) $indexName;
 	}
 }
