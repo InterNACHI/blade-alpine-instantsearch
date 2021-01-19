@@ -27,7 +27,15 @@
 			<div class="w-1/4 pr-4 pt-4">
 				
 				<!-- Refinements -->
+				<h2>
+					Brand
+				</h2>
 				<x-instantsearch-refinement-list attribute="brand" />
+				
+				<h2 class="mt-6">
+					Price
+				</h2>
+				<x-instantsearch-refinement-list attribute="price" />
 				
 			</div>
 			<div class="flex-1">

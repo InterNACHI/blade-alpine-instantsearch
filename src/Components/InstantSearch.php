@@ -59,7 +59,9 @@ class InstantSearch extends Component
 			'widgets' => $this->widgets,
 		];
 		
-		return new HtmlString(e(json_encode($config, JSON_THROW_ON_ERROR | JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT)));
+		$json = collect($config)->toJson(JSON_THROW_ON_ERROR | JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT);
+		
+		return new HtmlString(e($json));
 	}
 	
 	public function javascript(): HtmlString
