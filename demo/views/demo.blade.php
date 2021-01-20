@@ -54,28 +54,28 @@
 			<div class="flex-1">
 				
 				<!-- Hits -->
-{{--				<x-instantsearch-hits>--}}
-{{--					<div class="my-4 border p-4 shadow flex w-full">--}}
-{{--						<div>--}}
-{{--							--}}
-{{--							<x-instantsearch-highlight --}}
-{{--								attribute="name" --}}
-{{--								class="font-semibold text-lg mb-1" --}}
-{{--							/>--}}
-{{--							--}}
-{{--							<x-instantsearch-highlight attribute="description" />--}}
-{{--							--}}
-{{--						</div>--}}
-{{--						<div class="ml-auto">--}}
-{{--							--}}
-{{--							<div class="bg-gray-100 rounded-full px-4 py-1 flex">--}}
-{{--								$--}}
-{{--								<x-instantsearch-hit attribute="price" />--}}
-{{--							</div>--}}
-{{--							--}}
-{{--						</div>--}}
-{{--					</div>--}}
-{{--				</x-instantsearch-hits>--}}
+				<x-instantsearch-hits>
+					<div class="my-4 border p-4 shadow flex w-full">
+						<div>
+							
+							<x-instantsearch-highlight 
+								attribute="name" 
+								class="font-semibold text-lg mb-1" 
+							/>
+							
+							<x-instantsearch-highlight attribute="description" />
+							
+						</div>
+						<div class="ml-auto">
+							
+							<div class="bg-gray-100 rounded-full px-4 py-1 flex">
+								$
+								<x-instantsearch-hit attribute="price" />
+							</div>
+							
+						</div>
+					</div>
+				</x-instantsearch-hits>
 				
 			</div>
 		</div>

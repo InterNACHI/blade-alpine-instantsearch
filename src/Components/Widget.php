@@ -37,7 +37,7 @@ abstract class Widget extends Component
 		
 		$json = e(collect($config)->toJson(JSON_THROW_ON_ERROR | JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT));
 		
-		$this->widget_attributes = new HtmlString("x-data=\"BladeAlpineInstantSearch.widget()\" x-init=\"init\" data-config=\"{$json}\"");
+		$this->widget_attributes = new HtmlString("x-data=\"BladeAlpineInstantSearch.widget('{$json}')\" x-init=\"init\"");
 	}
 	
 	protected function variableDefaults(): array

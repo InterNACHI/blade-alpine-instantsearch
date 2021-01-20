@@ -208,7 +208,6 @@ $config = collect($matches[1])
 				
 				return $map[(string) $type];
 			})
-			->put('id', '?string')
 			->filter();
 	})
 	->each(function(Collection $arguments, string $name) {
@@ -217,7 +216,6 @@ $config = collect($matches[1])
 			->implode(",\n\t\t");
 		
 		$compact_lines = $arguments
-			->except('id')
 			->map(fn($type, $name) => "'{$name}'")
 			->implode(",\n\t\t\t");
 		
@@ -233,7 +231,6 @@ $config = collect($matches[1])
 			public function __construct(
 				{$constructor_arguments}
 			) {
-				\$this->setId(\$id);
 				\$this->setWidgetData(array_filter(compact(
 					{$compact_lines}
 				)));

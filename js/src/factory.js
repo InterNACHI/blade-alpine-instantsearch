@@ -1,9 +1,9 @@
 export default function factory(algoliasearch, instantsearch, connectors) {
 	let BladeAlpineInstantSearch = function() {
 		return {
-			search: '',
+			started: false,
 			algolia: null,
-			hits: [],
+			widgets: [],
 			
 			init() {
 				let config = JSON.parse(this.$el.dataset.config);
@@ -11,54 +11,44 @@ export default function factory(algoliasearch, instantsearch, connectors) {
 				
 				this.algolia = instantsearch({ indexName: config.index, searchClient: client });
 				
+				this.algolia.addWidgets(this.widgets);
+				
 				this.algolia.start();
+				this.started = true;
 			},
 			
 			addWidget(widget) {
-				let connector = `connect${ widget.name }`;
+				let connector_name = `connect${ widget.name }`;
 				
 				let callback = (options, first_render) => {
-					if (connector in this) {
-						this[connector](options, first_render);
+					if (connector_name in this) {
+						this[connector_name](options, first_render);
 					}
 					widget.connect(options, first_render);
 				};
 				
-				this.algolia.addWidget(connectors[connector](callback)(widget.config));
+				let connector = connectors[connector_name](callback)(widget.config);
+				
+				if (this.started) {
+					this.algolia.addWidget(connector);
+				} else {
+					this.widgets.push(connector);
+				}
 			},
-			
-			// connectSearchBox(options, first_render) {
-			// 	let { query, refine } = options;
-			//	
-			// 	if (first_render) {
-			// 		this.$watch('search', value => refine(value));
-			// 	}
-			//	
-			// 	this.search = query;
-			// },
-			
-			connectHits(options) {
-				this.hits = options.hits;
-			},
-			
 		};
 	};
 	
-	BladeAlpineInstantSearch.widget = function() {
+	BladeAlpineInstantSearch.widget = function(json) {
+		let { name, config, defaults } = JSON.parse(json);
+		
 		return {
-			name: '',
-			config: {},
-			items: [],
+			...defaults,
+			
+			name,
+			config,
 			first_render: true,
 			
 			init() {
-				let { name, config, defaults } = JSON.parse(this.$el.dataset.config);
-				
-				this.name = name;
-				this.config = config;
-				
-				Object.entries(defaults).forEach(([key, value]) => this[key] = value);
-				
 				setTimeout(() => this.$parent.addWidget(this), 1);
 			},
 			

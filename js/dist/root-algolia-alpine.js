@@ -19406,12 +19406,30 @@ var BladeAlpineInstantSearch = (function () {
 		connectVoiceSearch: connectVoiceSearch
 	};
 
+	function _extends$1() {
+	  _extends$1 = Object.assign || function (target) {
+	    for (var i = 1; i < arguments.length; i++) {
+	      var source = arguments[i];
+
+	      for (var key in source) {
+	        if (Object.prototype.hasOwnProperty.call(source, key)) {
+	          target[key] = source[key];
+	        }
+	      }
+	    }
+
+	    return target;
+	  };
+
+	  return _extends$1.apply(this, arguments);
+	}
+
 	function factory(algoliasearch, instantsearch, connectors) {
 	  var BladeAlpineInstantSearch = function BladeAlpineInstantSearch() {
 	    return {
-	      search: '',
+	      started: false,
 	      algolia: null,
-	      hits: [],
+	      widgets: [],
 	      init: function init() {
 	        var config = JSON.parse(this.$el.dataset.config);
 	        var client = algoliasearch(config.id, config.key);
@@ -19419,59 +19437,47 @@ var BladeAlpineInstantSearch = (function () {
 	          indexName: config.index,
 	          searchClient: client
 	        });
+	        this.algolia.addWidgets(this.widgets);
 	        this.algolia.start();
+	        this.started = true;
 	      },
 	      addWidget: function addWidget(widget) {
 	        var _this = this;
 
-	        var connector = "connect" + widget.name;
+	        var connector_name = "connect" + widget.name;
 
 	        var callback = function callback(options, first_render) {
-	          if (connector in _this) {
-	            _this[connector](options, first_render);
+	          if (connector_name in _this) {
+	            _this[connector_name](options, first_render);
 	          }
 
 	          widget.connect(options, first_render);
 	        };
 
-	        this.algolia.addWidget(connectors[connector](callback)(widget.config));
-	      },
-	      // connectSearchBox(options, first_render) {
-	      // 	let { query, refine } = options;
-	      //	
-	      // 	if (first_render) {
-	      // 		this.$watch('search', value => refine(value));
-	      // 	}
-	      //	
-	      // 	this.search = query;
-	      // },
-	      connectHits: function connectHits(options) {
-	        this.hits = options.hits;
+	        var connector = connectors[connector_name](callback)(widget.config);
+
+	        if (this.started) {
+	          this.algolia.addWidget(connector);
+	        } else {
+	          this.widgets.push(connector);
+	        }
 	      }
 	    };
 	  };
 
-	  BladeAlpineInstantSearch.widget = function () {
-	    return {
-	      name: '',
-	      config: {},
-	      items: [],
+	  BladeAlpineInstantSearch.widget = function (json) {
+	    var _JSON$parse = JSON.parse(json),
+	        name = _JSON$parse.name,
+	        config = _JSON$parse.config,
+	        defaults = _JSON$parse.defaults;
+
+	    return _extends$1({}, defaults, {
+	      name: name,
+	      config: config,
 	      first_render: true,
 	      init: function init() {
 	        var _this2 = this;
 
-	        var _JSON$parse = JSON.parse(this.$el.dataset.config),
-	            name = _JSON$parse.name,
-	            config = _JSON$parse.config,
-	            defaults = _JSON$parse.defaults;
-
-	        this.name = name;
-	        this.config = config;
-	        Object.entries(defaults).forEach(function (_ref) {
-	          var key = _ref[0],
-	              value = _ref[1];
-	          return _this2[key] = value;
-	        });
 	        setTimeout(function () {
 	          return _this2.$parent.addWidget(_this2);
 	        }, 1);
@@ -19480,13 +19486,13 @@ var BladeAlpineInstantSearch = (function () {
 	        var _this3 = this;
 
 	        this.first_render = first_render;
-	        Object.entries(options).forEach(function (_ref2) {
-	          var key = _ref2[0],
-	              value = _ref2[1];
+	        Object.entries(options).forEach(function (_ref) {
+	          var key = _ref[0],
+	              value = _ref[1];
 	          return _this3[key] = value;
 	        });
 	      }
-	    };
+	    });
 	  };
 
 	  return BladeAlpineInstantSearch;
