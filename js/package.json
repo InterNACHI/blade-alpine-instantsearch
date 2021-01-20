@@ -8,9 +8,10 @@
     "build-algolia": "microbundle -i src/root-algolia.js -o dist/root-algolia.js --f iife --define process.env=production --no-sourcemap --name=BladeAlpineInstantSearch --external=none",
     "build-algolia-alpine": "microbundle -i src/root-algolia-alpine.js -o dist/root-algolia-alpine.js --f iife --define process.env=production --no-sourcemap --name=BladeAlpineInstantSearch --external=none",
     "build-alpine": "microbundle -i src/root-alpine.js -o dist/root-alpine.js --f iife --define process.env=production --no-sourcemap --name=BladeAlpineInstantSearch --external=none --globals=algoliasearch,instantsearch",
-    "dev": "microbundle watch --no-compress --define process.env=development -i src/root.js -o dist/index.js --f iife --no-sourcemap --name=BladeAlpineInstantSearch --globals=algoliasearch,instantsearch"
+    "dev": "microbundle watch --no-compress --define process.env=development -i src/root-algolia-alpine.js -o dist/root-algolia-alpine.js --f iife --no-sourcemap --name=BladeAlpineInstantSearch --external=none --globals=algoliasearch,instantsearch"
   },
   "devDependencies": {
+    "alpine-magic-helpers": "^0.5.1",
     "microbundle": "^0.13.0"
   },
   "dependencies": {

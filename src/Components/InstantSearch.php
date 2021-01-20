@@ -9,8 +9,6 @@ use InterNACHI\BladeInstantSearch\BladeInstantSearch;
 
 class InstantSearch extends Component
 {
-	protected static int $autoId = 0;
-	
 	public string $applicationId;
 	
 	public string $searchKey;

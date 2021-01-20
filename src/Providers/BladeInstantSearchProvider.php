@@ -15,6 +15,7 @@ use InterNACHI\BladeInstantSearch\Components\Hits;
 use InterNACHI\BladeInstantSearch\Components\InstantSearch;
 use InterNACHI\BladeInstantSearch\Components\Menu;
 use InterNACHI\BladeInstantSearch\Components\MenuSelect;
+use InterNACHI\BladeInstantSearch\Components\NumericMenu;
 use InterNACHI\BladeInstantSearch\Components\Pagination;
 use InterNACHI\BladeInstantSearch\Components\RangeSlider;
 use InterNACHI\BladeInstantSearch\Components\RatingMenu;
@@ -58,6 +59,7 @@ class BladeInstantSearchProvider extends ServiceProvider
 			Hits::class,
 			Menu::class,
 			MenuSelect::class,
+			NumericMenu::class,
 			Pagination::class,
 			RangeSlider::class,
 			RatingMenu::class,

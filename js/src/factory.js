@@ -1,10 +1,9 @@
 export default function factory(algoliasearch, instantsearch, connectors) {
-	return () => {
+	let BladeAlpineInstantSearch = function() {
 		return {
 			search: '',
 			algolia: null,
 			hits: [],
-			widgetState: {},
 			
 			init() {
 				let config = JSON.parse(this.$el.dataset.config);
@@ -12,54 +11,63 @@ export default function factory(algoliasearch, instantsearch, connectors) {
 				
 				this.algolia = instantsearch({ indexName: config.index, searchClient: client });
 				
-				let widgets = config.widgets.map(widget => this.connectWidget(widget));
-				this.algolia.addWidgets(widgets);
-				
-				setTimeout(() => this.algolia.start(), 1);
-				setTimeout(() => console.log(this.hits), 1000);
+				this.algolia.start();
 			},
 			
-			getWidgetState(id, key, fallback = {}) {
-				let paths = key.split('.');
-				paths.unshift(id);
-				
-				try {
-					return paths.reduce((object, path) => {
-						if (!(path in object)) {
-							throw false;
-						}
-						return object[path];
-					}, this.widgetState);
-				} catch {
-					return fallback;
-				}
-			},
-			
-			connectWidget(widget) {
+			addWidget(widget) {
 				let connector = `connect${ widget.name }`;
-				let callback = connector in this
-					? this[connector].call(this, widget)
-					: (options) => this.widgetState[widget.id] = options;
 				
-				return connectors[connector](callback)(widget.config);
-			},
-			
-			connectSearchBox(widget) {
-				return (options, firstRender) => {
-					let { query, refine } = options;
-					
-					if (firstRender) {
-						this.$watch('search', value => refine(value));
+				let callback = (options, first_render) => {
+					if (connector in this) {
+						this[connector](options, first_render);
 					}
-					
-					this.search = query;
+					widget.connect(options, first_render);
 				};
+				
+				this.algolia.addWidget(connectors[connector](callback)(widget.config));
 			},
 			
-			connectHits(widget) {
-				return options => this.hits = options.hits;
+			// connectSearchBox(options, first_render) {
+			// 	let { query, refine } = options;
+			//	
+			// 	if (first_render) {
+			// 		this.$watch('search', value => refine(value));
+			// 	}
+			//	
+			// 	this.search = query;
+			// },
+			
+			connectHits(options) {
+				this.hits = options.hits;
 			},
 			
 		};
 	};
+	
+	BladeAlpineInstantSearch.widget = function() {
+		return {
+			name: '',
+			config: {},
+			items: [],
+			first_render: true,
+			
+			init() {
+				let { name, config, defaults } = JSON.parse(this.$el.dataset.config);
+				
+				this.name = name;
+				this.config = config;
+				
+				Object.entries(defaults).forEach(([key, value]) => this[key] = value);
+				
+				setTimeout(() => this.$parent.addWidget(this), 1);
+			},
+			
+			connect(options, first_render) {
+				this.first_render = first_render;
+				Object.entries(options).forEach(([key, value]) => this[key] = value);
+			},
+		};
+	};
+	
+	return BladeAlpineInstantSearch;
 };

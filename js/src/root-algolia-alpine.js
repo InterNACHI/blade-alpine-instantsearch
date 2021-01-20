@@ -1,3 +1,4 @@
+import 'alpine-magic-helpers/dist/component.js';
 import 'alpinejs';
 import algoliasearch from 'algoliasearch/lite';
 import instantsearch from 'instantsearch.js/es';

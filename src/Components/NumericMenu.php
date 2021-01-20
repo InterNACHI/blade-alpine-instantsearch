@@ -5,17 +5,24 @@ namespace InterNACHI\BladeInstantSearch\Components;
 class NumericMenu extends Widget
 {
 	public function __construct(
-		?string $attribute = null,
-		?string $id = null
+		string $attribute,
+		array $items
 	) {
-		$this->setId($id);
 		$this->setWidgetData(array_filter(compact(
-			'attribute'
+			'attribute',
+			'items'
 		)));
 	}
 	
 	public function render()
 	{
 		return view('instantsearch::numeric-menu');
+	}
+	
+	protected function variableDefaults() : array
+	{
+		return [
+			'items' => []
+		];
 	}
 }

@@ -6,21 +6,18 @@ use Illuminate\Container\Container;
 use Illuminate\Support\HtmlString;
 use Illuminate\Support\Str;
 use Illuminate\View\Component;
+use Illuminate\View\ComponentAttributeBag;
 use InterNACHI\BladeInstantSearch\BladeInstantSearch;
 
 abstract class Widget extends Component
 {
-	protected static $id_map = [];
-	
-	public ?string $id = null;
-	
-	protected array $widgetData = [];
+	public ?HtmlString $widget_attributes = null;
 	
 	public function resolveView()
 	{
-		$this->setId($this->id);
-		
-		$this->init($this->currentContext());
+		if ($this->isRenderless()) {
+			return view('instantsearch::connected-component');
+		}
 		
 		return parent::resolveView();
 	}
@@ -30,43 +27,34 @@ abstract class Widget extends Component
 		return view('instantsearch::connected-component');
 	}
 	
-	public function widgetState(string $subkey = null, $fallback = '{}'): HtmlString
-	{
-		if (!is_string($fallback)) {
-			$fallback = json_encode($fallback);
-		}
-		
-		return new HtmlString("getWidgetState('{$this->id}', '{$subkey}', {$fallback})");
-	}
-	
 	protected function setWidgetData(array $data)
 	{
-		$this->widgetData = $data;
+		$config = [
+			'name' => class_basename($this),
+			'config' => $data,
+			'defaults' => $this->variableDefaults(),
+		];
 		
-		return $this;
+		$json = e(collect($config)->toJson(JSON_THROW_ON_ERROR | JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT));
+		
+		$this->widget_attributes = new HtmlString("x-data=\"BladeAlpineInstantSearch.widget()\" x-init=\"init\" data-config=\"{$json}\"");
 	}
 	
-	protected function setId($id = null)
+	protected function variableDefaults(): array
 	{
-		if (null === $id) {
-			$prefix = Str::kebab(class_basename($this));
-			$suffix = static::$id_map[$prefix] ??= 1;
-			$id = $prefix.$suffix;
-			static::$id_map[$prefix]++;
+		return [];
+	}
+	
+	protected function isRenderless(): bool
+	{
+		if (
+			$this->attributes instanceof ComponentAttributeBag
+			&& $this->attributes->has('renderless')
+		) {
+			return (bool) $this->attributes->get('renderless');
 		}
 		
-		$this->id = (string) $id;
-		
-		return $this->id;
-	}
-	
-	protected function init(InstantSearch $context)
-	{
-		$context->addWidget(
-			class_basename($this),
-			$this->id,
-			$this->widgetData
-		);
+		return config('instantsearch.renderless', false);
 	}
 	
 	protected function currentContext() : InstantSearch
