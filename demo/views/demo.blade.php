@@ -31,7 +31,7 @@
 					Brand
 				</h2>
 				
-{{--				<x-instantsearch-refinement-list attribute="brand" />--}}
+				<x-instantsearch-refinement-list attribute="brand" />
 				
 				<h2 class="my-3 font-bold">
 					Price

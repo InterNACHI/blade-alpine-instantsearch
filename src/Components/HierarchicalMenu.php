@@ -14,7 +14,6 @@ class HierarchicalMenu extends Widget
 		?bool $showParentLevel = null,
 		?string $id = null
 	) {
-		$this->setId($id);
 		$this->setWidgetData(array_filter(compact(
 			'attributes',
 			'limit',
