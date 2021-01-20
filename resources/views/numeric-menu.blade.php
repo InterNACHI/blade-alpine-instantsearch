@@ -1,4 +1,4 @@
-<ul {{ $widget_attributes }}>
+<ul {{ $attributes }}>
 	<template x-for="item in items" :key="item">
 		<li>
 			<label>

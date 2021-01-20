@@ -11,7 +11,7 @@ use InterNACHI\BladeInstantSearch\BladeInstantSearch;
 
 abstract class Widget extends Component
 {
-	public ?HtmlString $widget_attributes = null;
+	protected array $widgetData = [];
 	
 	public function resolveView()
 	{
@@ -29,15 +29,23 @@ abstract class Widget extends Component
 	
 	protected function setWidgetData(array $data)
 	{
-		$config = [
+		$this->widgetData = [
 			'name' => class_basename($this),
 			'config' => $data,
 			'defaults' => $this->variableDefaults(),
 		];
+	}
+	
+	public function withAttributes(array $attributes)
+	{
+		$json = e(collect($this->widgetData)->toJson(JSON_THROW_ON_ERROR | JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT));
 		
-		$json = e(collect($config)->toJson(JSON_THROW_ON_ERROR | JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT));
+		$attributes = array_merge($attributes, [
+			'x-data' => new HtmlString("BladeAlpineInstantSearch.widget('{$json}')"),
+			'x-init' => 'init',
+		]);
 		
-		$this->widget_attributes = new HtmlString("x-data=\"BladeAlpineInstantSearch.widget('{$json}')\" x-init=\"init\"");
+		return parent::withAttributes($attributes);
 	}
 	
 	protected function variableDefaults(): array
