@@ -13,7 +13,6 @@ class Pagination extends Widget
 		?int $totalPages = null,
 		?string $id = null
 	) {
-		$this->setId($id);
 		$this->setWidgetData(array_filter(compact(
 			'showFirst',
 			'showPrevious',
@@ -27,5 +26,16 @@ class Pagination extends Widget
 	public function render()
 	{
 		return view('instantsearch::pagination');
+	}
+	
+	protected function variableDefaults() : array
+	{
+		return [
+			'nbPages' => 1,
+			'currentRefinement' => 1,
+			'isFirstPage' => true,
+			'isLastPage' => false,
+			'pages' => [],
+		];
 	}
 }
