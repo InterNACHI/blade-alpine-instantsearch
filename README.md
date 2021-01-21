@@ -1,5 +1,20 @@
 # Blade/Alpine InstantSearch
 
+<div>
+	<a href="https://packagist.org/packages/internachi/blade-alpine-instantsearch" target="_blank">
+        <img 
+            src="https://poser.pugx.org/internachi/blade-alpine-instantsearch/v/stable" 
+            alt="Latest Stable Release" 
+        />
+	</a>
+	<a href="./LICENSE" target="_blank" class="mx-1">
+        <img 
+            src="https://poser.pugx.org/internachi/blade-alpine-instantsearch/license" 
+            alt="MIT Licensed" 
+        />
+    </a>
+</div>
+
 This is a work-in-progress package to allow you to implement [Algolia InstantSearch](https://www.algolia.com/doc/api-reference/widgets/instantsearch/js/)
 entirely with [Laravel Blade components](https://laravel.com/docs/8.x/blade).
 
