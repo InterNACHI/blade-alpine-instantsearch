@@ -3,37 +3,53 @@
 This is a work-in-progress package to allow you to implement [Algolia InstantSearch](https://www.algolia.com/doc/api-reference/widgets/instantsearch/js/)
 entirely with [Laravel Blade components](https://laravel.com/docs/8.x/blade).
 
-![Demo of Code](https://user-images.githubusercontent.com/21592/104821179-1594fb80-5808-11eb-95b7-66a2909c2644.gif)
+## Usage
 
-```xml
-<x-instantsearch 
-    application-id="latency" 
-    search-key="6be0576ff61c053d5f9a3225e2a90f76" 
-    index-name="instant_search"
->
+### Components
 
-    <x-instantsearch-search-box />
-    
-    <div class="flex">
-        
-        <div class="w-1/4 pr-4 pt-4">
-            <x-instantsearch-refinement-list attribute="brand" />
-        </div>
-        
-        <div class="flex-1">
-            <x-instantsearch-hits>
-                <div class="my-4 border p-4 shadow flex w-full">
-                    <div>
-                        <div x-text="hit.name" class="font-semibold text-lg mb-1"></div>
-                        <div x-text="hit.description"></div>
-                    </div>
-                    <div class="ml-auto">
-                        <div x-text="hit.popularity" class="bg-gray-100 rounded-full px-4 py-1"></div>
-                    </div>
-                </div>
-            </x-instantsearch-hits>
-        </div>
-        
-    </div>
-</x-instantsearch>
+Not all components are implemented, and most of the UI is likely to change before a 1.0
+release. The current implementation is a proof-of-concept that we'll be refining in some
+internal tools over the coming months. All components should work in 
+[renderless mode](#renderless-mode), but UI has only been implemented for the following:
+
+ - `<x-instantsearch>` — the wrapper that provides configuration and context
+ - `<x-instantsearch-search-box>` — the search input
+ - `<x-instantsearch-hits>` — rendering search results/hits
+ - `<x-instantsearch-hit>` — rendering a specific attribute in a hit
+ - `<x-instantsearch-highlight>` — rendering a specific attribute highlighted based on input
+ - `<x-instantsearch-numeric-menu>` — Filtering by numeric values (like price/votes/etc)
+ - `<x-instantsearch-refinement-list>` — Filtering by tags/categories/etc
+ - `<x-instantsearch-pagination>` — Paginating results
+
+### Using Existing Templates
+
+All components come pre-bundled with templates that will work with any project that uses
+[Tailwind CSS](https://tailwindcss.com). If you want to tweak a specific template you can
+publish your own version with:
+
+```bash
+php artisan vendor:publish --tag=instantsearch
 ```
+
+### Renderless Mode
+
+If you prefer more fine-grained control over each component, you can enable `renderless`
+mode which simply wires up your component state but leaves the UI entirely in your hands.
+
+You can either do this on a component-by-component basis by using a `renderless` attribute
+on the component:
+
+```html
+<x-instantsearch-refinement-list attribute="brand" renderless>
+    <!-- Do whatever you want here -->
+</x-instantsearch-refinement-list>
+```
+
+Or you can publish the package config file with:
+
+```bash
+php artisan vendor:publish --tag=instantsearch
+```
+
+And then enable the `renderless` config option which will cause all components to work
+in this mode by default.

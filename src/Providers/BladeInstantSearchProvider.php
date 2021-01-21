@@ -41,7 +41,7 @@ class BladeInstantSearchProvider extends ServiceProvider
 		$this->publishes([
 			$this->helper->path('config.php') => config_path('instantsearch.php'),
 			$this->helper->path('resources/views') => resource_path('views/vendor/instantsearch'),
-		]);
+		], ['instantsearch']);
 		
 		$this->loadViewsFrom($this->helper->path('resources/views'), 'instantsearch');
 		
