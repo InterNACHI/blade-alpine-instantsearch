@@ -9,57 +9,36 @@ use InterNACHI\BladeInstantSearch\BladeInstantSearch;
 
 class InstantSearch extends Component
 {
-	public string $applicationId;
-	
-	public string $searchKey;
-	
-	public string $indexName;
-	
-	public array $widgets = [];
+	public HtmlString $config;
 	
 	protected BladeInstantSearch $helper;
 	
-	public function __construct(BladeInstantSearch $helper, $applicationId, $searchKey, $indexName)
-	{
+	public function __construct(
+		BladeInstantSearch $helper,
+		string $applicationId,
+		string $searchKey,
+		string $indexName,
+		?string $numberLocale = null,
+		?bool $routing = null,
+		$initialUiState = null,
+		?int $stalledSearchDelay = null
+	) {
 		$this->helper = $helper;
 		
-		$this->applicationId = (string) $applicationId;
-		$this->searchKey = (string) $searchKey;
-		
-		$this->setIndexName($indexName);
-	}
-	
-	public function addWidget($name, $id, array $config = []): self
-	{
-		$this->widgets[] = compact('name', 'id', 'config');
-		
-		return $this;
+		$this->buildConfig(compact(
+			'applicationId',
+			'searchKey',
+			'indexName',
+			'numberLocale',
+			'routing',
+			'initialUiState',
+			'stalledSearchDelay'
+		));
 	}
 	
 	public function render()
 	{
 		return view('instantsearch::context');
-	}
-	
-	public function resolveView()
-	{
-		$this->helper->pushContext($this);
-		
-		return fn($data) => tap($this->render()->with($data), fn() => $this->helper->popContext());
-	}
-	
-	public function config(): HtmlString
-	{
-		$config = [
-			'id' => $this->applicationId,
-			'key' => $this->searchKey,
-			'index' => $this->indexName,
-			'widgets' => $this->widgets,
-		];
-		
-		$json = collect($config)->toJson(JSON_THROW_ON_ERROR | JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT);
-		
-		return new HtmlString(e($json));
 	}
 	
 	public function javascript(): HtmlString
@@ -81,23 +60,34 @@ class InstantSearch extends Component
 		return new HtmlString('<script>'.file_get_contents($this->helper->path("js/dist/{$filename}.js")).'</script>');
 	}
 	
-	protected function setIndexName($indexName)
+	protected function buildConfig(array $config)
 	{
-		// If we're passed the fully-qualified class name of a model that implements
-		// the Scout Searchable trait, we'll instantiate that model
-		if (
-			class_exists($indexName) 
-			&& is_subclass_of($indexName, Model::class, true)
-			&& method_exists($indexName, 'searchableAs')
-		) {
-			$indexName = new $indexName();
+		$config['indexName'] = $this->indexName($config['indexName']);
+		
+		$json = collect($config)
+			->filter()
+			->toJson(JSON_THROW_ON_ERROR | JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT);
+		
+		$this->config = new HtmlString(e($json));
+	}
+	
+	protected function indexName($input): string
+	{
+		if ($this->isSearchableModelClassName($input)) {
+			$input = new $input();
 		}
 		
-		// If we have a Model that implements the Scout `searchableAs()` method, use that
-		if ($indexName instanceof Model && method_exists($indexName, 'searchableAs')) {
-			$indexName = $indexName->searchableAs();
+		if (method_exists($input, 'searchableAs')) {
+			$input = $input->searchableAs();
 		}
 		
-		$this->indexName = (string) $indexName;
+		return (string) $input;
+	}
+	
+	protected function isSearchableModelClassName($input) : bool
+	{
+		return class_exists($input)
+			&& is_subclass_of($input, Model::class, true)
+			&& method_exists($input, 'searchableAs');
 	}
 }

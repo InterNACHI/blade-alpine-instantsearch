@@ -1129,11 +1129,6 @@ alphanum-sort@^1.0.0:
   resolved "https://registry.yarnpkg.com/alphanum-sort/-/alphanum-sort-1.0.2.tgz#97a1119649b211ad33691d9f9f486a8ec9fbe0a3"
   integrity sha1-l6ERlkmyEa0zaR2fn0hqjsn74KM=
 
-alpine-magic-helpers@^0.5.1:
-  version "0.5.1"
-  resolved "https://registry.yarnpkg.com/alpine-magic-helpers/-/alpine-magic-helpers-0.5.1.tgz#89de18c121a2fb13ba1caf1c3118d6917801da86"
-  integrity sha512-zj1o/Er5WLCQbaDjQCsobrfPaxgHp6Mf2ZDXce7B4THrPdKXwOrIB4zHykjXA6qCEljyh4js2fA6QWLXp3w/nw==
-
 alpinejs@^2.8.0:
   version "2.8.0"
   resolved "https://registry.yarnpkg.com/alpinejs/-/alpinejs-2.8.0.tgz#d0de7309dd642e9198aef7c14acb9243246549f0"

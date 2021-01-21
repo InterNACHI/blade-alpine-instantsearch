@@ -19,10 +19,8 @@ class RefinementList extends Widget
 		return view('instantsearch::refinement-list');
 	}
 	
-	protected function variableDefaults() : array
+	protected function widgetDefaults() : string
 	{
-		return [
-			'items' => [],
-		];
+		return '{ items: [] }';
 	}
 }

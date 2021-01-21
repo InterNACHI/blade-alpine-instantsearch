@@ -1,23 +1,30 @@
 export default function factory(algoliasearch, instantsearch, connectors) {
-	let BladeAlpineInstantSearch = function() {
+	let BladeAlpineInstantSearch = function($el, json) {
+		let {
+			applicationId,
+			searchKey,
+			...options
+		} = JSON.parse(json);
+		
+		let searchClient = algoliasearch(applicationId, searchKey);
+		
+		let widgets = [];
+		$el.addBladeAlpineInstantSearchWidget = widget => widgets.push(widget);
+		
 		return {
-			started: false,
 			algolia: null,
 			widgets: [],
 			
 			init() {
-				let config = JSON.parse(this.$el.dataset.config);
-				let client = algoliasearch(config.id, config.key);
+				this.algolia = instantsearch({ searchClient, ...options });
 				
-				this.algolia = instantsearch({ indexName: config.index, searchClient: client });
-				
+				this.widgets = widgets.map(widget => this.connectWidget(widget));
 				this.algolia.addWidgets(this.widgets);
 				
 				this.algolia.start();
-				this.started = true;
 			},
 			
-			addWidget(widget) {
+			connectWidget(widget) {
 				let connector_name = `connect${ widget.name }`;
 				
 				let callback = (options, first_render) => {
@@ -27,29 +34,24 @@ export default function factory(algoliasearch, instantsearch, connectors) {
 					widget.connect(options, first_render);
 				};
 				
-				let connector = connectors[connector_name](callback)(widget.config);
-				
-				if (this.started) {
-					this.algolia.addWidget(connector);
-				} else {
-					this.widgets.push(connector);
-				}
+				return connectors[connector_name](callback)(widget.config);
 			},
 		};
 	};
 	
-	BladeAlpineInstantSearch.widget = function(json) {
-		let { name, config, defaults } = JSON.parse(json);
+	BladeAlpineInstantSearch.widget = function($el, name, json, defaults) {
+		let config = JSON.parse(json);
 		
 		return {
 			...defaults,
-			
 			name,
 			config,
 			first_render: true,
 			
 			init() {
-				setTimeout(() => this.$parent.addWidget(this), 1);
+				$el.parentNode
+					.closest('[data-instantsearch-context]')
+					.addBladeAlpineInstantSearchWidget(this);
 			},
 			
 			connect(options, first_render) {

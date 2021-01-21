@@ -17,10 +17,8 @@ class Hits extends Widget
 		return view('instantsearch::hits');
 	}
 	
-	protected function variableDefaults() : array
+	protected function widgetDefaults() : string
 	{
-		return [
-			'hits' => [],
-		];
+		return '{ hits: [] }';
 	}
 }

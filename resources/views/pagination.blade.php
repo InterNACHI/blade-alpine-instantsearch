@@ -1,4 +1,6 @@
-<div {{ $attributes }} class="relative z-0 inline-flex space-x-4 items-center">
+<?php /** @var \Illuminate\View\ComponentAttributeBag $attributes */ ?>
+
+<div {{ $attributes->merge(['class' => 'relative z-0 inline-flex space-x-4 items-center']) }}>
 	
 	<span class="text-sm">
 		Page <b x-text="currentRefinement + 1"></b>

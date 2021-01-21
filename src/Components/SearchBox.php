@@ -27,10 +27,8 @@ class SearchBox extends Widget
 		return view('instantsearch::search-box');
 	}
 	
-	protected function variableDefaults() : array
+	protected function widgetDefaults() : string
 	{
-		return [
-			'query' => '',
-		];
+		return "{ query: '', isSearchStalled: false }";
 	}
 }

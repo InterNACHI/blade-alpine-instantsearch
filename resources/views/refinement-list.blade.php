@@ -1,3 +1,5 @@
+<?php /** @var \Illuminate\View\ComponentAttributeBag $attributes */ ?>
+
 <div {{ $attributes }}>
 	<template x-for="item in items" :key="item">
 		<div class="relative flex items-start">

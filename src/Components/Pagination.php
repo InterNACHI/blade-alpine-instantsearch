@@ -28,14 +28,8 @@ class Pagination extends Widget
 		return view('instantsearch::pagination');
 	}
 	
-	protected function variableDefaults() : array
+	protected function widgetDefaults() : string
 	{
-		return [
-			'nbPages' => 1,
-			'currentRefinement' => 1,
-			'isFirstPage' => true,
-			'isLastPage' => false,
-			'pages' => [],
-		];
+		return '{ nbPages: 1, currentRefinement: 1, isFirstPage: true, isLastPage: false, pages: [] }';
 	}
 }

@@ -11,7 +11,6 @@
     "dev": "microbundle watch --no-compress --define process.env=development -i src/root-algolia-alpine.js -o dist/root-algolia-alpine.js --f iife --no-sourcemap --name=BladeAlpineInstantSearch --external=none --globals=algoliasearch,instantsearch"
   },
   "devDependencies": {
-    "alpine-magic-helpers": "^0.5.1",
     "microbundle": "^0.13.0"
   },
   "dependencies": {

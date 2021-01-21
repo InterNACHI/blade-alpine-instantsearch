@@ -19,9 +19,10 @@
 		:application-id="config('services.algolia.app')" 
 		:search-key="config('services.algolia.search_key')" 
 		:index-name="config('services.algolia.demo_index')"
+		routing
 	>
 		<!-- Search Box -->
-		<x-instantsearch-search-box />
+		<x-instantsearch-search-box show-loading-indicator />
 		
 		<div class="flex">
 			<div class="w-1/4 pr-4 pt-4">
