@@ -1,2 +1,4 @@
 .idea/
+vendor/
 /js/node_modules
+composer.lock
