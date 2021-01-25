@@ -2,6 +2,7 @@
 
 namespace InterNACHI\BladeInstantSearch\Providers;
 
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\View\Compilers\BladeCompiler;
 use InterNACHI\BladeInstantSearch\BladeInstantSearch;
@@ -49,24 +50,26 @@ class BladeInstantSearchProvider extends ServiceProvider
 			$blade->component(InstantSearch::class, 'instantsearch');
 		});
 		
-		$this->loadViewComponentsAs('instantsearch', [
-			Breadcrumb::class,
-			ClearRefinements::class,
-			CurrentRefinements::class,
-			HierarchicalMenu::class,
-			Highlight::class,
-			Hit::class,
-			Hits::class,
-			Menu::class,
-			MenuSelect::class,
-			NumericMenu::class,
-			Pagination::class,
-			RangeSlider::class,
-			RatingMenu::class,
-			RefinementList::class,
-			SearchBox::class,
-			SortBy::class,
-			ToggleRefinement::class,
-		]);
+		Blade::componentNamespace('InterNACHI\\BladeInstantSearch\\Components', 'instantsearch');
+		
+		// $this->loadViewComponentsAs('instantsearch', [
+		// 	Breadcrumb::class,
+		// 	ClearRefinements::class,
+		// 	CurrentRefinements::class,
+		// 	HierarchicalMenu::class,
+		// 	Highlight::class,
+		// 	Hit::class,
+		// 	Hits::class,
+		// 	Menu::class,
+		// 	MenuSelect::class,
+		// 	NumericMenu::class,
+		// 	Pagination::class,
+		// 	RangeSlider::class,
+		// 	RatingMenu::class,
+		// 	RefinementList::class,
+		// 	SearchBox::class,
+		// 	SortBy::class,
+		// 	ToggleRefinement::class,
+		// ]);
 	}
 }

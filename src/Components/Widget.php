@@ -2,6 +2,7 @@
 
 namespace InterNACHI\BladeInstantSearch\Components;
 
+use Illuminate\Contracts\View\View as ViewContract;
 use Illuminate\Support\HtmlString;
 use Illuminate\View\Component;
 use Illuminate\View\ComponentAttributeBag;
@@ -14,11 +15,13 @@ abstract class Widget extends Component
 	
 	public function resolveView()
 	{
-		if ($this->isRenderless()) {
-			return view('instantsearch::connected-component');
-		}
-		
-		return parent::resolveView();
+		return function($data) {
+			$view = $this->isRenderless()
+				? view('instantsearch::connected-component')
+				: $this->render();
+			
+			return $view->with($data);
+		};
 	}
 	
 	public function render()
