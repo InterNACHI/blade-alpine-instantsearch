@@ -47,6 +47,7 @@ export default function factory(algoliasearch, instantsearch, connectors) {
 			name,
 			config,
 			first_render: true,
+			instantsearch,
 			
 			init() {
 				$el.parentNode

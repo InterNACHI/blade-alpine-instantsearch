@@ -2,7 +2,7 @@
 
 <div {{ $attributes }}>
 	<template x-for="item in items" :key="item">
-		<div class="relative flex items-start">
+		<div class="relative flex items-start mb-1">
 			<div>
 				<input
 					:key="item.value"
@@ -23,7 +23,7 @@
 			</div>
 			<div class="ml-auto">
 				<span
-					class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800"
+					class="inline-flex items-center px-2 py-px rounded-full text-xs font-medium bg-gray-100 text-gray-800"
 					x-text="item.count"
 				></span>
 			</div>

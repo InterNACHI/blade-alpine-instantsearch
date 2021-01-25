@@ -31,7 +31,7 @@ abstract class Widget extends Component
 	
 	public function withAttributes(array $attributes)
 	{
-		$name = class_basename($this);
+		$name = $this->widgetName();
 		$config = e(collect($this->widget_config)->toJson(static::JSON_FLAGS));
 		$defaults = $this->widgetDefaults();
 		
@@ -51,6 +51,11 @@ abstract class Widget extends Component
 	protected function widgetDefaults() : string
 	{
 		return '{}';
+	}
+	
+	protected function widgetName(): string
+	{
+		return class_basename($this);
 	}
 	
 	protected function isRenderless() : bool
