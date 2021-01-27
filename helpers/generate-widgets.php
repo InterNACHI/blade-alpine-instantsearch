@@ -5,7 +5,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Illuminate\Support\Stringable;
 
-require __DIR__.'/../demo/vendor/autoload.php';
+require __DIR__.'/../vendor/autoload.php';
 
 $definitions = <<<JS
 instantsearch.widgets.searchBox({

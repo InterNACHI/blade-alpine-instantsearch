@@ -2,7 +2,7 @@
 
 <div {{ $attributes->merge(['class' => 'relative z-0 flex justify-between items-center']) }}>
 	
-	<span class="text-sm">
+	<span class="text-sm" :class="{ hidden: 0 === nbPages }">
 		Page <b x-text="currentRefinement + 1"></b>
 		of <b x-text="nbPages"></b>
 	</span>
