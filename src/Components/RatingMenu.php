@@ -20,4 +20,9 @@ class RatingMenu extends Widget
 	{
 		return view('instantsearch::rating-menu');
 	}
+	
+	protected function widgetDefaults(): string
+	{
+		return '{ items: [], hasNoResults: true, canRefine: false, refine: null, sendEvent: null, createURL: null, widgetParams: {} }';
+	}
 }

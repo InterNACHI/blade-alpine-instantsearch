@@ -18,4 +18,9 @@ class ToggleRefinement extends Widget
 	{
 		return view('instantsearch::toggle-refinement');
 	}
+	
+	protected function widgetDefaults(): string
+	{
+		return '{ value: {}, canRefine: false, refine: null, sendEvent: null, createURL: null, widgetParams: {} }';
+	}
 }

@@ -8,14 +8,14 @@
     "build-algolia": "microbundle -i src/root-algolia.js -o dist/root-algolia.js --f iife --define process.env=production --no-sourcemap --name=BladeAlpineInstantSearch --external=none",
     "build-algolia-alpine": "microbundle -i src/root-algolia-alpine.js -o dist/root-algolia-alpine.js --f iife --define process.env=production --no-sourcemap --name=BladeAlpineInstantSearch --external=none",
     "build-alpine": "microbundle -i src/root-alpine.js -o dist/root-alpine.js --f iife --define process.env=production --no-sourcemap --name=BladeAlpineInstantSearch --external=none --globals=algoliasearch,instantsearch",
-    "dev": "microbundle watch --no-compress --define process.env=development -i src/root-algolia-alpine.js -o dist/root-algolia-alpine.js --f iife --no-sourcemap --name=BladeAlpineInstantSearch --external=none --globals=algoliasearch,instantsearch"
+    "dev": "microbundle watch --no-compress --define process.env=development -i src/root-algolia.js -o dist/root-algolia.js --f iife --no-sourcemap --name=BladeAlpineInstantSearch --external=none --globals=algoliasearch,instantsearch,Alpine"
   },
   "devDependencies": {
     "microbundle": "^0.13.0"
   },
   "dependencies": {
-    "algoliasearch": "^4.8.3",
-    "alpinejs": "^2.8.0",
-    "instantsearch.js": "^4.11.0"
+    "algoliasearch": "^4.12.1",
+    "alpinejs": "^3.9.0",
+    "instantsearch.js": "^4.39.0"
   }
 }

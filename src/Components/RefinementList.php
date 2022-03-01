@@ -52,8 +52,8 @@ class RefinementList extends Widget
 		return view('instantsearch::refinement-list');
 	}
 	
-	protected function widgetDefaults() : string
+	protected function widgetDefaults(): string
 	{
-		return '{ items: [], isShowingMore: false, canToggleShowMore: false }';
+		return '{ items: [], canRefine: false, refine: null, sendEvent: null, createURL: null, isFromSearch: false, searchForItems: null, isShowingMore: false, canToggleShowMore: false, toggleShowMore: null, widgetParams: {} }';
 	}
 }

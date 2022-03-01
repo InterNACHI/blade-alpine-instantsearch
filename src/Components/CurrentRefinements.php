@@ -20,4 +20,9 @@ class CurrentRefinements extends Widget
 	{
 		return view('instantsearch::current-refinements');
 	}
+	
+	protected function widgetDefaults(): string
+	{
+		return '{ items: [], canRefine: false, refine: null, createURL: null, widgetParams: {} }';
+	}
 }

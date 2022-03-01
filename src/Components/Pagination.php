@@ -30,6 +30,6 @@ class Pagination extends Widget
 	
 	protected function widgetDefaults() : string
 	{
-		return '{ nbPages: 1, currentRefinement: 1, isFirstPage: true, isLastPage: false, pages: [] }';
+		return '{ pages: [], currentRefinement: 0, nbHits: 0, nbPages: 0, isFirstPage: true, isLastPage: false, canRefine: false, refine: null, createURL: null, widgetParams: null }';
 	}
 }

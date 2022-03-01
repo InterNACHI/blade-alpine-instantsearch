@@ -42,7 +42,7 @@ now, it's probably best to refer to the JS docs for configuration reference.
 
 ### Alpine
 
-Under the hood, all components use [Alpine.js](https://github.com/alpinejs/alpine) to
+Under the hood, all components use [Alpine.js v3](https://github.com/alpinejs/alpine) to
 handle state and rendering. For example, the search box component uses Alpine's
 [`x-model`](https://github.com/alpinejs/alpine#x-model) to track the `query` value,
 and [`x-on:input`](https://github.com/alpinejs/alpine#x-on) to pass that value to the

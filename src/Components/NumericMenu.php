@@ -19,8 +19,8 @@ class NumericMenu extends Widget
 		return view('instantsearch::numeric-menu');
 	}
 	
-	protected function widgetDefaults() : string
+	protected function widgetDefaults(): string
 	{
-		return '{ items: [] }';
+		return '{ items: [], hasNoResults: true, refine: null, sendEvent: null, createURL: null, widgetParams: {} }';
 	}
 }

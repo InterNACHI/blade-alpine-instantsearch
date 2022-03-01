@@ -28,4 +28,9 @@ class RangeSlider extends Widget
 	{
 		return view('instantsearch::range-slider');
 	}
+	
+	protected function widgetDefaults(): string
+	{
+		return '{ start: [], range: {}, canRefine: false, refine: null, sendEvent: null, widgetParams: {} }';
+	}
 }

@@ -6,7 +6,7 @@
 	</template>
 	
 	@isset($empty)
-		<div style="display: none;" x-show="!first_render && 0 === hits.length">
+		<div style="display: none;" x-show="!isFirstRender && 0 === hits.length">
 			{{ $empty }}
 		</div>
 	@endisset

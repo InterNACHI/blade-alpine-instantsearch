@@ -22,4 +22,9 @@ class Breadcrumb extends Widget
 	{
 		return view('instantsearch::breadcrumb');
 	}
+	
+	protected function widgetDefaults(): string
+	{
+		return '{ items: [], canRefine: false, refine: null, createURL: null, widgetParams: {} }';
+	}
 }

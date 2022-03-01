@@ -1,7 +1,7 @@
 <?php /** @var \Illuminate\View\ComponentAttributeBag $attributes */ ?>
 
 <div {{ $attributes }}>
-	<template x-for="item in items" :key="item">
+	<template x-for="item in items" :key="item.value">
 		<div class="relative flex items-start mb-1">
 			<div>
 				<input

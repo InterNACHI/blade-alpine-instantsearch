@@ -20,4 +20,9 @@ class ClearRefinements extends Widget
 	{
 		return view('instantsearch::clear-refinements');
 	}
+	
+	protected function widgetDefaults(): string
+	{
+		return '{ canRefine: false, refine: null, createURL: null, widgetParams: {} }';
+	}
 }

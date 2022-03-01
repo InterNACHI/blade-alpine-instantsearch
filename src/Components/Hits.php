@@ -19,6 +19,6 @@ class Hits extends Widget
 	
 	protected function widgetDefaults() : string
 	{
-		return '{ hits: [] }';
+		return '{ hits: [], results: {}, sendEvent: null, widgetParams: null }';
 	}
 }

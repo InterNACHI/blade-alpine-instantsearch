@@ -24,4 +24,9 @@ class Menu extends Widget
 	{
 		return view('instantsearch::menu');
 	}
+	
+	protected function widgetDefaults(): string
+	{
+		return '{ items: [], canRefine: false, isShowingMore: false, canToggleShowMore: false, refine: null, sendEvent: null, createURL: null, toggleShowMore: null, widgetParams: {} }';
+	}
 }

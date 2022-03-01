@@ -2,7 +2,7 @@
 
 <div {{ $attributes->only(['x-data', 'x-init']) }} class="relative">
 	<input
-		{{ $attributes->except(['x-model', '@input'])
+		{{ $attributes->except(['x-model', '@input', 'x-data', 'x-init'])
 			->merge([
 				'type' => 'text', 
 				'placeholder' => 'Search', 

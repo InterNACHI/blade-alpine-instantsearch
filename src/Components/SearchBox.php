@@ -25,6 +25,6 @@ class SearchBox extends Widget
 	
 	protected function widgetDefaults() : string
 	{
-		return "{ query: '', isSearchStalled: false }";
+		return "{ query: '', refine: null, clear: null, isSearchStalled: false, widgetParams: {} }";
 	}
 }

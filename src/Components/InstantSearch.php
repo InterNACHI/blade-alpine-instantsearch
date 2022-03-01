@@ -4,12 +4,13 @@ namespace InterNACHI\BladeInstantSearch\Components;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\HtmlString;
+use Illuminate\Support\Js;
 use Illuminate\View\Component;
 use InterNACHI\BladeInstantSearch\BladeInstantSearch;
 
 class InstantSearch extends Component
 {
-	public HtmlString $config;
+	public Js $config;
 	
 	protected BladeInstantSearch $helper;
 	
@@ -64,11 +65,7 @@ class InstantSearch extends Component
 	{
 		$config['indexName'] = $this->indexName($config['indexName']);
 		
-		$json = collect($config)
-			->filter()
-			->toJson(JSON_THROW_ON_ERROR | JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT);
-		
-		$this->config = new HtmlString(e($json));
+		$this->config = Js::from(collect($config)->filter());
 	}
 	
 	protected function indexName($input): string

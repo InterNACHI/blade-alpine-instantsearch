@@ -28,7 +28,8 @@
 	},
 	"require": {
 		"php": ">=7.4",
-		"illuminate/view": "^8.0"
+		"illuminate/view": "^8.71|^9.0|dev-master",
+		"illuminate/support": "^8.71|^9.0|dev-master"
 	},
 	"require-dev": {
 		"orchestra/testbench": "^6.0",

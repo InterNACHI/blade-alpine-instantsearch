@@ -1,4 +1,4 @@
-<div x-data="BladeAlpineInstantSearch($el, '{{ $config }}')" x-init="init" data-instantsearch-context>
+<div x-data="BladeAlpineInstantSearch($el, {{ $config }})">
 	{{ $slot }}
 </div>
 

@@ -1,7 +1,7 @@
 <?php /** @var \Illuminate\View\ComponentAttributeBag $attributes */ ?>
 
 <ul {{ $attributes }}>
-	<template x-for="item in items" :key="item">
+	<template x-for="item in items" :key="item.value">
 		<li>
 			<label>
 				<input 

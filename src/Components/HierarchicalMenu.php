@@ -29,4 +29,9 @@ class HierarchicalMenu extends Widget
 	{
 		return view('instantsearch::hierarchical-menu');
 	}
+	
+	protected function widgetDefaults(): string
+	{
+		return '{ items: [], isShowingMore: false, canToggleShowMore: false, canRefine: false, refine: null, sendEvent: null, toggleShowMore: null, createURL: null, widgetParams: {} }';
+	}
 }
