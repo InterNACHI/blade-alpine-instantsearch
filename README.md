@@ -18,6 +18,13 @@
 This is a work-in-progress package to allow you to implement [Algolia InstantSearch](https://www.algolia.com/doc/api-reference/widgets/instantsearch/js/)
 entirely with [Laravel Blade components](https://laravel.com/docs/8.x/blade).
 
+## Installation
+
+You can install the package via composer:
+``` bash
+composer require internachi/blade-alpine-instantsearch
+```
+
 ## Usage
 
 ### Components
