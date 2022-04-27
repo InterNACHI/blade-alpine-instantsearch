@@ -9,6 +9,7 @@
 					:value="item.value"
 					:id="'{{ $id }}' + '_' + item.value"
 					:checked="item.isRefined"
+					x-model="item.isRefined"
 					@change="refine($event.target.value)"
 					type="checkbox"
 					class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
