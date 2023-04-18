@@ -6,10 +6,9 @@
 			<div>
 				<input
 					:key="item.value"
-					:value="item.value"
 					:id="'{{ $id }}' + '_' + item.value"
-					:checked="item.isRefined"
-					@change="refine($event.target.value)"
+					:value="item.isRefined"
+					@change="refine(item.value)"
 					type="checkbox"
 					class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
 				/>
