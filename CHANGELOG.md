@@ -5,10 +5,12 @@ the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) format. This projec
 
 ## [Unreleased]
 
+## [0.5.0] - 2024-03-12
+
 ### Added
 
-- Added Laravel 11 support
-- Added basic tests
+-   Added Laravel 11 support
+-   Added basic tests
 
 # Keep a Changelog Syntax
 
@@ -19,7 +21,9 @@ the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) format. This projec
 -   `Fixed` for any bug fixes. 
 -   `Security` in case of vulnerabilities.
 
-[Unreleased]: https://github.com/InterNACHI/blade-alpine-instantsearch/compare/0.4.1...HEAD
+[Unreleased]: https://github.com/InterNACHI/blade-alpine-instantsearch/compare/0.5.0...HEAD
+
+[0.5.0]: https://github.com/InterNACHI/blade-alpine-instantsearch/compare/0.4.1...0.5.0
 
 [0.4.1]: https://github.com/InterNACHI/blade-alpine-instantsearch/compare/0.4.0...0.4.1
 
