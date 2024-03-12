@@ -28,12 +28,12 @@
 	},
 	"require": {
 		"php": ">=7.4",
-		"illuminate/view": "^8.71|^9|^10|dev-master",
-		"illuminate/support": "^8.71|^9|^10|dev-master"
+		"illuminate/view": "^8.71|^9|^10|^11|dev-master",
+		"illuminate/support": "^8.71|^9|^10|^11|dev-master"
 	},
 	"require-dev": {
-		"orchestra/testbench": "^6|^7|dev-master",
-		"phpunit/phpunit": "^9.0"
+		"orchestra/testbench": "^6|^7|^8|9.x-dev|dev-master",
+		"phpunit/phpunit": "^9.0|^10.5"
 	},
 	"archive": {
 		"exclude": [
