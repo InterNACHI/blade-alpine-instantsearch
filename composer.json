@@ -18,7 +18,7 @@
 			"InterNACHI\\BladeInstantSearch\\Tests\\": "tests/"
 		}
 	},
-	"minimum-stability": "stable",
+	"minimum-stability": "dev",
 	"extra": {
 		"laravel": {
 			"providers": [
@@ -32,7 +32,7 @@
 		"illuminate/support": "^8.71|^9|^10|^11|dev-master"
 	},
 	"require-dev": {
-		"orchestra/testbench": "^6|^7|^8|9.x-dev|dev-master",
+		"orchestra/testbench": "^6|^7|^8|^9|9.x-dev|dev-master",
 		"phpunit/phpunit": "^9.0|^10.5",
 		"friendsofphp/php-cs-fixer": "^3.39"
 	},
