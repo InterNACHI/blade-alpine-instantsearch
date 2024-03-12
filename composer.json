@@ -33,7 +33,12 @@
 	},
 	"require-dev": {
 		"orchestra/testbench": "^6|^7|^8|9.x-dev|dev-master",
-		"phpunit/phpunit": "^9.0|^10.5"
+		"phpunit/phpunit": "^9.0|^10.5",
+		"friendsofphp/php-cs-fixer": "^3.39"
+	},
+	"scripts": {
+		"fix-style": "vendor/bin/php-cs-fixer fix",
+		"check-style": "vendor/bin/php-cs-fixer fix --diff --dry-run"
 	},
 	"archive": {
 		"exclude": [
