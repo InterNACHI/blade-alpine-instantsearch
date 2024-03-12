@@ -17,7 +17,7 @@ class Hits extends Widget
 		return view('instantsearch::hits');
 	}
 	
-	protected function widgetDefaults() : string
+	protected function widgetDefaults(): string
 	{
 		return '{ hits: [], results: {}, sendEvent: null, widgetParams: null }';
 	}

@@ -53,7 +53,7 @@ abstract class Widget extends Component
 		$this->widget_config = $data;
 	}
 	
-	protected function widgetDefaults() : string
+	protected function widgetDefaults(): string
 	{
 		return '{}';
 	}
@@ -63,18 +63,18 @@ abstract class Widget extends Component
 		return class_basename($this);
 	}
 	
-	protected function isRenderless() : bool
+	protected function isRenderless(): bool
 	{
 		return $this->renderlessAttribute() ?? config('instantsearch.renderless', false);
 	}
 	
-	protected function renderlessAttribute() : ?bool
+	protected function renderlessAttribute(): ?bool
 	{
-		if (!($this->attributes instanceof ComponentAttributeBag)) {
+		if (! ($this->attributes instanceof ComponentAttributeBag)) {
 			return null;
 		}
 		
-		if (!$this->attributes->has('renderless')) {
+		if (! $this->attributes->has('renderless')) {
 			return null;
 		}
 		

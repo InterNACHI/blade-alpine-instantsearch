@@ -23,7 +23,7 @@ class SearchBox extends Widget
 		return view('instantsearch::search-box');
 	}
 	
-	protected function widgetDefaults() : string
+	protected function widgetDefaults(): string
 	{
 		return "{ query: '', refine: null, clear: null, isSearchStalled: false, widgetParams: {} }";
 	}

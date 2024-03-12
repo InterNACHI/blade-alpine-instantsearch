@@ -9,7 +9,7 @@ class Refinement extends RefinementList
 		return view('instantsearch::refinement');
 	}
 	
-	protected function widgetName() : string
+	protected function widgetName(): string
 	{
 		return 'RefinementList';
 	}

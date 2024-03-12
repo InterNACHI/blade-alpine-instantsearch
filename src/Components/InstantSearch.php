@@ -81,7 +81,7 @@ class InstantSearch extends Component
 		return (string) $input;
 	}
 	
-	protected function isSearchableModelClassName($input) : bool
+	protected function isSearchableModelClassName($input): bool
 	{
 		return class_exists($input)
 			&& is_subclass_of($input, Model::class, true)

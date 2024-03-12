@@ -14,7 +14,7 @@ class BladeInstantSearch
 		
 		if (empty($to)) {
 			return $from;
-		} 
+		}
 		
 		$to = ltrim(str_replace('/', DIRECTORY_SEPARATOR, $to), DIRECTORY_SEPARATOR);
 		

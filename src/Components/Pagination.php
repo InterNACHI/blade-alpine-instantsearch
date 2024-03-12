@@ -28,7 +28,7 @@ class Pagination extends Widget
 		return view('instantsearch::pagination');
 	}
 	
-	protected function widgetDefaults() : string
+	protected function widgetDefaults(): string
 	{
 		return '{ pages: [], currentRefinement: 0, nbHits: 0, nbPages: 0, isFirstPage: true, isLastPage: false, canRefine: false, refine: null, createURL: null, widgetParams: null }';
 	}
