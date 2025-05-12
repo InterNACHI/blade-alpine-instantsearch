@@ -29,4 +29,9 @@ class RangeInput extends Widget
 	{
 		return '{ start: [], range: {}, canRefine: false, refine: null, sendEvent: null, widgetParams: {} }';
 	}
+	
+	protected function widgetName(): string
+	{
+		return 'Range';
+	}
 }
