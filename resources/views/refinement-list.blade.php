@@ -23,7 +23,7 @@
 			<div class="ml-auto">
 				<span
 					class="inline-flex items-center px-2 py-px rounded-full text-xs font-medium bg-gray-100 text-gray-800"
-					x-text="item.count"
+					x-text="item.count.toLocaleString()"
 				></span>
 			</div>
 		</div>
