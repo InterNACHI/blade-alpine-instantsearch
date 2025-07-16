@@ -5,6 +5,8 @@ the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) format. This projec
 
 ## [Unreleased]
 
+## [0.6.0] - 2025-07-16
+
 ## [0.5.2] - 2025-05-12
 
 ## [0.5.1] - 2025-05-12
@@ -25,7 +27,9 @@ the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) format. This projec
 -   `Fixed` for any bug fixes. 
 -   `Security` in case of vulnerabilities.
 
-[Unreleased]: https://github.com/InterNACHI/blade-alpine-instantsearch/compare/0.5.2...HEAD
+[Unreleased]: https://github.com/InterNACHI/blade-alpine-instantsearch/compare/0.6.0...HEAD
+
+[0.6.0]: https://github.com/InterNACHI/blade-alpine-instantsearch/compare/0.5.2...0.6.0
 
 [0.5.2]: https://github.com/InterNACHI/blade-alpine-instantsearch/compare/0.5.1...0.5.2
 
