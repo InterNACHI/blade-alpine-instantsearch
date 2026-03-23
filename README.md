@@ -13,6 +13,12 @@
             alt="MIT Licensed" 
         />
     </a>
+    <a href="https://bsky.app/profile/cmorrell.com" target="_blank">
+        <img 
+            src="https://img.shields.io/bluesky/followers/cmorrell.com" 
+            alt="Follow @cmorrell.com on bsky" 
+        />
+    </a>
 </div>
 
 This is a work-in-progress package to allow you to implement [Algolia InstantSearch](https://www.algolia.com/doc/api-reference/widgets/instantsearch/js/)
