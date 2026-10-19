@@ -13,6 +13,8 @@ use InvalidArgumentException;
 
 abstract class Widget extends Component
 {
+	public ?string $id = null;
+	
 	protected array $widget_config = [];
 	
 	public function resolveView()

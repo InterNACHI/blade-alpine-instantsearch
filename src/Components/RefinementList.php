@@ -2,12 +2,8 @@
 
 namespace InterNACHI\BladeInstantSearch\Components;
 
-use Illuminate\Support\Str;
-
 class RefinementList extends Widget
 {
-	public string $id;
-	
 	public bool $searchable;
 	
 	public bool $show_more;
@@ -27,7 +23,7 @@ class RefinementList extends Widget
 		?array $sortBy = null,
 		?string $id = null
 	) {
-		$this->id = $id ?? Str::random();
+		$this->setId($id);
 		$this->show_more = $showMore;
 		$this->searchable = $searchable;
 		$this->searchable_placeholder = $searchablePlaceholder ?? 'Search…';
