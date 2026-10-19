@@ -27,4 +27,9 @@ class SearchBox extends Widget
 	{
 		return "{ query: '', refine: null, clear: null, isSearchStalled: false, widgetParams: {} }";
 	}
+	
+	protected function uiStateKey(): string
+	{
+		return 'query';
+	}
 }

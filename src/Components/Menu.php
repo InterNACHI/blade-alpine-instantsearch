@@ -29,4 +29,9 @@ class Menu extends Widget
 	{
 		return '{ items: [], canRefine: false, isShowingMore: false, canToggleShowMore: false, refine: null, sendEvent: null, createURL: null, toggleShowMore: null, widgetParams: {} }';
 	}
+	
+	protected function uiStateKey(): string
+	{
+		return "menu.{$this->widget_config['attribute']}";
+	}
 }

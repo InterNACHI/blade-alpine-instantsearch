@@ -56,4 +56,9 @@ class RefinementList extends Widget
 	{
 		return '{ items: [], canRefine: false, refine: null, sendEvent: null, createURL: null, isFromSearch: false, searchForItems: null, isShowingMore: false, canToggleShowMore: false, toggleShowMore: null, widgetParams: {} }';
 	}
+	
+	protected function uiStateKey(): string
+	{
+		return "refinementList.{$this->widget_config['attribute']}";
+	}
 }
