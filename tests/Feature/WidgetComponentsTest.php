@@ -51,7 +51,7 @@ class WidgetComponentsTest extends TestCase
 			],
 			'menu-select' => [
 				'<x-instantsearch::menu-select attribute="category" :limit="5" />',
-				'MenuSelect',
+				'Menu',
 				['attribute' => 'category', 'limit' => 5],
 				'{ items: [], canRefine: false, refine: null, sendEvent: null, widgetParams: {} }',
 			],
@@ -75,7 +75,7 @@ class WidgetComponentsTest extends TestCase
 			],
 			'range-slider' => [
 				'<x-instantsearch::range-slider attribute="price" :min="1" :max="100" :precision="2" :step="5" pips />',
-				'RangeSlider',
+				'Range',
 				['attribute' => 'price', 'min' => 1, 'max' => 100, 'precision' => 2, 'step' => 5, 'pips' => true],
 				'{ start: [], range: {}, canRefine: false, refine: null, sendEvent: null, widgetParams: {} }',
 			],

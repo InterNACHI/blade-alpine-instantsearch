@@ -21,6 +21,11 @@ class MenuSelect extends Widget
 		return view('instantsearch::menu-select');
 	}
 	
+	protected function widgetName(): string
+	{
+		return 'Menu';
+	}
+	
 	protected function widgetDefaults(): string
 	{
 		return '{ items: [], canRefine: false, refine: null, sendEvent: null, widgetParams: {} }';

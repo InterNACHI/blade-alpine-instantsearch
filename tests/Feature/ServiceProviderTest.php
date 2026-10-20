@@ -22,6 +22,7 @@ class ServiceProviderTest extends TestCase
 	{
 		$this->assertTrue(config('instantsearch.bundle_alpine'));
 		$this->assertTrue(config('instantsearch.bundle_algolia'));
+		$this->assertTrue(config('instantsearch.bundle_all_connectors'));
 		$this->assertFalse(config('instantsearch.renderless'));
 	}
 	

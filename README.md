@@ -106,6 +106,11 @@ By default, the package inlines Alpine.js, the Algolia search client and Instant
 If your app already loads Alpine (or Livewire), the bundled copy stays out of the way and
 your copy is used instead.
 
+The bundled InstantSearch.js includes every connector, so you can register your own
+widgets with `addWidget()`. If you only use this package's components, set
+`bundle_all_connectors` to `false` to include just the connectors they need (about 27 KB
+smaller, gzipped).
+
 If you disable `bundle_algolia`, load the Algolia libraries before the `<x-instantsearch>`
 component. Version 4 and 5 of `algoliasearch` (lite or full build) both work:
 

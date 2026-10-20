@@ -42,13 +42,18 @@ class InstantSearch extends Component
 	{
 		// This lets us choose the correct pre-compiled JavaScript bundle depending
 		// on the user's config (i.e. root-algolia-alpine.js if all bundling is enabled).
+		$bundle_algolia = config('instantsearch.bundle_algolia', true);
+		
 		$segments = [
 			'root',
-			config('instantsearch.bundle_algolia', true)
+			$bundle_algolia
 				? 'algolia'
 				: null,
 			config('instantsearch.bundle_alpine', true)
 				? 'alpine'
+				: null,
+			$bundle_algolia && ! config('instantsearch.bundle_all_connectors', true)
+				? 'slim'
 				: null,
 		];
 		

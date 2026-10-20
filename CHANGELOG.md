@@ -9,6 +9,8 @@ the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) format. This projec
 
 -   Tests for every Blade component, plus JavaScript unit and browser tests
 -   Support for `algoliasearch` v5 (and still v4) when `bundle_algolia` is disabled
+-   `bundle_all_connectors` config option: set it to `false` for smaller bundles that only
+    include the connectors this package's components use
 
 ### Changed
 
@@ -20,6 +22,9 @@ the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) format. This projec
 
 -   The bundled Alpine.js is now started when the app doesn't load its own copy
 -   Widgets no longer create a dynamic `$id` property (deprecated in PHP 8.2)
+-   `menu-select` and `range-slider` now use InstantSearch.js connectors that exist
+    (`connectMenu` and `connectRange`)
+-   A clear error when a widget asks for a connector that isn't available
 
 ## [0.7.0] - 2026-03-23
 

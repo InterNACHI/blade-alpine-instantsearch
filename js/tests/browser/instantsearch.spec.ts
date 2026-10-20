@@ -22,7 +22,9 @@ const vendor: Record<string, string> = {
 const variants = [
 	'root-algolia-alpine',
 	'root-algolia-alpine.app-alpine',
+	'root-algolia-alpine-slim',
 	'root-algolia',
+	'root-algolia-slim',
 	'root-alpine',
 	'root-alpine.app-alpine',
 	'root',

@@ -74,6 +74,13 @@ describe('BladeAlpineInstantSearch()', () => {
 		expect(root.widgets).toEqual([{ $$type: 'ais.searchBox', render, widgetParams: { showReset: true } }]);
 	});
 	
+	test('addWidget() explains when a connector is missing', () => {
+		const { BladeAlpineInstantSearch } = setup();
+		const root = BladeAlpineInstantSearch($el, { applicationId: 'APP', searchKey: 'KEY', indexName: 'products' });
+		
+		expect(() => root.addWidget('Autocomplete', {}, () => {})).toThrow(/no "connectAutocomplete" connector/);
+	});
+	
 	test('init() adds widgets and starts searching once child widgets have registered', () => {
 		const { BladeAlpineInstantSearch, search } = setup();
 		const root = BladeAlpineInstantSearch($el, { applicationId: 'APP', searchKey: 'KEY', indexName: 'products' });

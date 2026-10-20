@@ -25,8 +25,13 @@ export default function factory(
 			widgets: [],
 			instantsearch,
 			addWidget(name, config, render) {
-				const widget = (connectors[`connect${ name }`] as Connector)(render);
-				this.widgets.push(widget(config));
+				const connector = connectors[`connect${ name }`] as Connector | undefined;
+				
+				if (! connector) {
+					throw new Error(`BladeAlpineInstantSearch: no "connect${ name }" connector is available. If it's a custom widget, enable "bundle_all_connectors".`);
+				}
+				
+				this.widgets.push(connector(render)(config));
 			},
 			init() {
 				// Child widgets initialize after the root, so wait for them to register

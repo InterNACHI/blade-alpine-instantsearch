@@ -55,19 +55,24 @@ class InstantSearchComponentTest extends TestCase
 	public static function bundleProvider(): array
 	{
 		return [
-			'everything bundled' => [true, true, 'root-algolia-alpine.js'],
-			'algolia only' => [true, false, 'root-algolia.js'],
-			'alpine only' => [false, true, 'root-alpine.js'],
-			'nothing bundled' => [false, false, 'root.js'],
+			'everything bundled' => [true, true, true, 'root-algolia-alpine.js'],
+			'algolia only' => [true, false, true, 'root-algolia.js'],
+			'alpine only' => [false, true, true, 'root-alpine.js'],
+			'nothing bundled' => [false, false, true, 'root.js'],
+			'everything bundled, component connectors only' => [true, true, false, 'root-algolia-alpine-slim.js'],
+			'algolia only, component connectors only' => [true, false, false, 'root-algolia-slim.js'],
+			'alpine only, connector option ignored' => [false, true, false, 'root-alpine.js'],
+			'nothing bundled, connector option ignored' => [false, false, false, 'root.js'],
 		];
 	}
 	
 	#[DataProvider('bundleProvider')]
-	public function test_it_includes_the_correct_javascript_bundle(bool $algolia, bool $alpine, string $expected): void
+	public function test_it_includes_the_correct_javascript_bundle(bool $algolia, bool $alpine, bool $all_connectors, string $expected): void
 	{
 		config([
 			'instantsearch.bundle_algolia' => $algolia,
 			'instantsearch.bundle_alpine' => $alpine,
+			'instantsearch.bundle_all_connectors' => $all_connectors,
 		]);
 		
 		$result = (string) $this->blade('<x-instantsearch application-id="APP" search-key="KEY" index-name="products" />');

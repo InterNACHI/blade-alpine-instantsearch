@@ -15,26 +15,29 @@ if (! is_dir($output)) {
 	mkdir($output, 0777, true);
 }
 
-// [bundle_algolia, bundle_alpine, app also loads its own Alpine, algoliasearch build the app loads]
+// [bundle_algolia, bundle_alpine, bundle_all_connectors, app also loads its own Alpine, algoliasearch build the app loads]
 $variants = [
-	'root-algolia-alpine' => [true, true, false, null],
-	'root-algolia-alpine.app-alpine' => [true, true, true, null],
-	'root-algolia' => [true, false, true, null],
-	'root-alpine' => [false, true, false, 'algoliasearch-lite'],
-	'root-alpine.app-alpine' => [false, true, true, 'algoliasearch-lite'],
-	'root' => [false, false, true, 'algoliasearch-lite'],
-	'root.algoliasearch-full' => [false, false, true, 'algoliasearch-full'],
-	'root.algoliasearch-v4' => [false, false, true, 'algoliasearch-v4'],
+	'root-algolia-alpine' => [true, true, true, false, null],
+	'root-algolia-alpine.app-alpine' => [true, true, true, true, null],
+	'root-algolia-alpine-slim' => [true, true, false, false, null],
+	'root-algolia' => [true, false, true, true, null],
+	'root-algolia-slim' => [true, false, false, true, null],
+	'root-alpine' => [false, true, true, false, 'algoliasearch-lite'],
+	'root-alpine.app-alpine' => [false, true, true, true, 'algoliasearch-lite'],
+	'root' => [false, false, true, true, 'algoliasearch-lite'],
+	'root.algoliasearch-full' => [false, false, true, true, 'algoliasearch-full'],
+	'root.algoliasearch-v4' => [false, false, true, true, 'algoliasearch-v4'],
 ];
 
 $app = Application::create(options: [
 	'extra' => ['providers' => [BladeInstantSearchProvider::class]],
 ]);
 
-foreach ($variants as $variant => [$bundle_algolia, $bundle_alpine, $app_alpine, $algoliasearch]) {
+foreach ($variants as $variant => [$bundle_algolia, $bundle_alpine, $bundle_all_connectors, $app_alpine, $algoliasearch]) {
 	$app['view']->flushState();
 	$app['config']->set('instantsearch.bundle_algolia', $bundle_algolia);
 	$app['config']->set('instantsearch.bundle_alpine', $bundle_alpine);
+	$app['config']->set('instantsearch.bundle_all_connectors', $bundle_all_connectors);
 	
 	$html = Blade::render(file_get_contents(__DIR__.'/page.blade.php'), compact('variant', 'bundle_algolia', 'bundle_alpine', 'app_alpine', 'algoliasearch'));
 	

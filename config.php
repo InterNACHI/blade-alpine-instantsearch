@@ -22,6 +22,17 @@ return [
 	
 	/*
 	|--------------------------------------------------------------------------
+	| Connector Bundling
+	|--------------------------------------------------------------------------
+	|
+	| When Algolia is bundled, every InstantSearch.js connector is included so
+	| that you can wire up your own widgets with `addWidget()`. If you only use
+	| this package's components, disable this to ship a smaller bundle.
+	*/
+	'bundle_all_connectors' => true,
+	
+	/*
+	|--------------------------------------------------------------------------
 	| Render Mode
 	|--------------------------------------------------------------------------
 	|
