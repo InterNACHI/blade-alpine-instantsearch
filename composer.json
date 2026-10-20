@@ -45,7 +45,9 @@
 			"/helpers",
 			"/tests",
 			"/js/src",
+			"/js/tests",
 			"/js/package.json",
+			"/js/playwright.config.js",
 			"/js/yarn.lock"
 		]
 	}
