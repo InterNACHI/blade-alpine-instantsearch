@@ -3,8 +3,10 @@
 namespace InterNACHI\BladeInstantSearch\Tests\Feature;
 
 use Illuminate\Support\Js;
+use InterNACHI\BladeInstantSearch\Components\Widget;
 use InterNACHI\BladeInstantSearch\Tests\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
+use ReflectionClass;
 
 class WidgetComponentsTest extends TestCase
 {
@@ -116,7 +118,6 @@ class WidgetComponentsTest extends TestCase
 		];
 	}
 	
-	/** @dataProvider widgetProvider */
 	#[DataProvider('widgetProvider')]
 	public function test_widgets_bind_to_their_instantsearch_connector(string $blade, string $name, array $config, string $defaults): void
 	{
@@ -300,6 +301,25 @@ class WidgetComponentsTest extends TestCase
 		
 		$this->blade('<x-instantsearch::snippet attribute="description" tag-name="p" />')
 			->assertSee('<p', false);
+	}
+	
+	public function test_widgets_do_not_create_dynamic_properties(): void
+	{
+		set_error_handler(fn(int $level, string $message) => $this->fail($message), E_DEPRECATED);
+		
+		try {
+			foreach (glob(dirname(__DIR__, 2).'/src/Components/*.php') as $file) {
+				$class = 'InterNACHI\\BladeInstantSearch\\Components\\'.basename($file, '.php');
+				
+				if (is_subclass_of($class, Widget::class) && ! (new ReflectionClass($class))->isAbstract()) {
+					$widget = $this->app->make($class, ['attribute' => 'brand', 'items' => [], 'id' => 'widget-id']);
+					$widget->setId('another-id');
+					$this->assertSame('another-id', $widget->id);
+				}
+			}
+		} finally {
+			restore_error_handler();
+		}
 	}
 	
 	protected function expectedXData(string $name, array $config, string $defaults): string

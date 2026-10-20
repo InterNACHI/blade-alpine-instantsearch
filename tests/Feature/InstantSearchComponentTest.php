@@ -62,7 +62,6 @@ class InstantSearchComponentTest extends TestCase
 		];
 	}
 	
-	/** @dataProvider bundleProvider */
 	#[DataProvider('bundleProvider')]
 	public function test_it_includes_the_correct_javascript_bundle(bool $algolia, bool $alpine, string $expected): void
 	{

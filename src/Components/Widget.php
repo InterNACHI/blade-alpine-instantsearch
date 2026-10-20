@@ -10,6 +10,8 @@ use Illuminate\View\ComponentAttributeBag;
 
 abstract class Widget extends Component
 {
+	public ?string $id = null;
+	
 	protected array $widget_config = [];
 	
 	public function resolveView()

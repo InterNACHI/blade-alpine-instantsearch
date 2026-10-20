@@ -39,7 +39,7 @@ jobs:
 
       - name: Register composer cache directory
         id: composer-cache-files-dir
-        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+        run: echo "dir=$(composer config cache-files-dir)" >> "$GITHUB_OUTPUT"
 
       - name: Cache dependencies
         uses: actions/cache@v5
@@ -47,15 +47,14 @@ jobs:
           path: |
             vendor
             ${{ steps.composer-cache-files-dir.outputs.dir }}
-          key: ${{ runner.os }}-composer-${{ hashFiles('composer.json') }}
+          key: ${{ runner.os }}-php-${{ matrix.php }}-laravel-${{ matrix.laravel }}-${{ matrix.dependency-version }}-composer-${{ hashFiles('composer.json') }}
           restore-keys: |
-            ${{ runner.os }}-composer- 
+            ${{ runner.os }}-php-${{ matrix.php }}-laravel-${{ matrix.laravel }}-${{ matrix.dependency-version }}-composer-
 
       - name: Install dependencies
         env:
           COMPOSER_DISCARD_CHANGES: true
         run: |
-          composer config minimum-stability ${{ matrix.minimum-stability }}
           composer require --no-progress --no-interaction --prefer-dist --update-with-all-dependencies "laravel/framework:${{ matrix.laravel }}"
           composer update --no-progress --no-interaction --prefer-dist --with-all-dependencies --prefer-${{ matrix.dependency-version }} 
 

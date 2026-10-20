@@ -86,9 +86,9 @@ You can either do this on a component-by-component basis by using a `renderless`
 on the component:
 
 ```html
-<x-instantsearch-refinement-list attribute="brand" renderless>
+<x-instantsearch::refinement-list attribute="brand" renderless>
     <!-- Do whatever you want here -->
-</x-instantsearch-refinement-list>
+</x-instantsearch::refinement-list>
 ```
 
 Or you can publish the package config file with:
@@ -99,3 +99,41 @@ php artisan vendor:publish --tag=instantsearch
 
 And then enable the `renderless` config option which will cause all components to work
 in this mode by default.
+
+### Bundling
+
+By default, the package inlines Alpine.js, the Algolia search client and InstantSearch.js.
+If your app already loads Alpine (or Livewire), the bundled copy stays out of the way and
+your copy is used instead.
+
+If you disable `bundle_algolia`, load the Algolia libraries before the `<x-instantsearch>`
+component. Version 4 and 5 of `algoliasearch` (lite or full build) both work:
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/algoliasearch@5/dist/lite/builds/browser.umd.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4/dist/instantsearch.production.min.js"></script>
+```
+
+## Development
+
+PHP tests:
+
+```bash
+composer install
+composer test
+```
+
+The JavaScript lives in `js/` and is written in TypeScript. The built bundles in `js/dist`
+are committed, because the Blade component inlines them.
+
+```bash
+cd js
+npm install
+npm run build          # rebuild js/dist
+npm run typecheck
+npm test               # unit tests (Vitest)
+npm run test:browser   # renders the Blade components and tests them in Chromium (Playwright)
+```
+
+The browser tests need PHP and `composer install`, because they render the real Blade
+components. Run `npx playwright install chromium` once before the first run.

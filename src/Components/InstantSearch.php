@@ -12,10 +12,8 @@ class InstantSearch extends Component
 {
 	public Js $config;
 	
-	protected BladeInstantSearch $helper;
-	
 	public function __construct(
-		BladeInstantSearch $helper,
+		protected BladeInstantSearch $helper,
 		string $applicationId,
 		string $searchKey,
 		string $indexName,
@@ -24,8 +22,6 @@ class InstantSearch extends Component
 		$initialUiState = null,
 		?int $stalledSearchDelay = null
 	) {
-		$this->helper = $helper;
-		
 		$this->buildConfig(compact(
 			'applicationId',
 			'searchKey',
@@ -44,7 +40,7 @@ class InstantSearch extends Component
 	
 	public function javascript(): HtmlString
 	{
-		// This let's us choose the correct pre-compiled JavaScript bundle depending
+		// This lets us choose the correct pre-compiled JavaScript bundle depending
 		// on the user's config (i.e. root-algolia-alpine.js if all bundling is enabled).
 		$segments = [
 			'root',

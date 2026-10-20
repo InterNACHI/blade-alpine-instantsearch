@@ -5,6 +5,22 @@ the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) format. This projec
 
 ## [Unreleased]
 
+### Added
+
+-   Tests for every Blade component, plus JavaScript unit and browser tests
+-   Support for `algoliasearch` v5 (and still v4) when `bundle_algolia` is disabled
+
+### Changed
+
+-   Requires PHP 8.1+ and Laravel 10+
+-   JavaScript is now written in TypeScript and built with Vite
+-   Bundles now ship `algoliasearch` v5, `instantsearch.js` 4.120 and Alpine.js 3.17
+
+### Fixed
+
+-   The bundled Alpine.js is now started when the app doesn't load its own copy
+-   Widgets no longer create a dynamic `$id` property (deprecated in PHP 8.2)
+
 ## [0.7.0] - 2026-03-23
 
 ## [0.6.0] - 2025-07-16
