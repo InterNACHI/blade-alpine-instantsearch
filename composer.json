@@ -46,9 +46,12 @@
 			"/tests",
 			"/js/src",
 			"/js/tests",
+			"/js/build.ts",
 			"/js/package.json",
-			"/js/playwright.config.js",
-			"/js/yarn.lock"
+			"/js/package-lock.json",
+			"/js/playwright.config.ts",
+			"/js/tsconfig.json",
+			"/js/vitest.config.ts"
 		]
 	}
 }

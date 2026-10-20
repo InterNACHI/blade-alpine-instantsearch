@@ -6,7 +6,7 @@ jobs:
   js-tests:
     runs-on: ubuntu-latest
 
-    name: Unit and browser tests
+    name: Build, unit and browser tests
 
     defaults:
       run:
@@ -30,17 +30,25 @@ jobs:
         uses: actions/setup-node@v5
         with:
           node-version: 22
-          cache: yarn
-          cache-dependency-path: js/yarn.lock
+          cache: npm
+          cache-dependency-path: js/package-lock.json
 
       - name: Install JS dependencies
-        run: yarn install --frozen-lockfile
+        run: npm ci
+
+      - name: Type check
+        run: npm run typecheck
+
+      - name: Check that dist/ matches the source
+        run: |
+          npm run build
+          git diff --exit-code -- dist
+
+      - name: Run unit tests
+        run: npm test
 
       - name: Install Playwright browser
         run: npx playwright install --with-deps chromium
 
-      - name: Run unit tests
-        run: yarn test
-
       - name: Run browser tests
-        run: yarn test:browser
+        run: npm run test:browser

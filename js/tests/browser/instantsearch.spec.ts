@@ -3,14 +3,16 @@ import { readFileSync } from 'node:fs';
 import { createRequire } from 'node:module';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { search } from './algolia-stub.js';
+import { search, type SearchRequest } from './algolia-stub.ts';
 
 const require = createRequire(import.meta.url);
 const here = dirname(fileURLToPath(import.meta.url));
 
 // Stand-ins for the CDN scripts that apps load themselves when bundling is disabled
-const vendor = {
-	'/vendor/algoliasearch.js': require.resolve('algoliasearch/dist/algoliasearch-lite.umd.js'),
+const vendor: Record<string, string> = {
+	'/vendor/algoliasearch-lite.js': require.resolve('algoliasearch/dist/lite/builds/browser.umd.js'),
+	'/vendor/algoliasearch-full.js': require.resolve('algoliasearch/dist/algoliasearch.umd.js'),
+	'/vendor/algoliasearch-v4.js': require.resolve('algoliasearch-v4/dist/algoliasearch-lite.umd.js'),
 	'/vendor/instantsearch.js': require.resolve('instantsearch.js/dist/instantsearch.production.min.js'),
 	'/vendor/alpine.js': require.resolve('alpinejs/dist/cdn.min.js'),
 };
@@ -24,19 +26,24 @@ const variants = [
 	'root-alpine',
 	'root-alpine.app-alpine',
 	'root',
+	'root.algoliasearch-full',
+	'root.algoliasearch-v4',
 ];
 
 for (const variant of variants) {
 	test.describe(variant, () => {
-		// FIXME: The bundled copy of Alpine is never started, so pages that rely on it don't work
-		test.fixme(['root-algolia-alpine', 'root-alpine'].includes(variant));
-		
-		let queries;
+		let queries: SearchRequest[];
 		
 		test.beforeEach(async ({ page }) => {
 			queries = [];
 			
 			page.on('pageerror', error => { throw error; });
+			
+			// Count how many copies of Alpine start on the page
+			await page.addInitScript(() => {
+				(window as any).alpineStarts = 0;
+				document.addEventListener('alpine:init', () => (window as any).alpineStarts++);
+			});
 			
 			await page.route('**/*', async route => {
 				const url = new URL(route.request().url());
@@ -71,6 +78,11 @@ for (const variant of variants) {
 			await expect(page.locator('.hit')).toHaveCount(2);
 			expect(queries.length).toBeGreaterThan(0);
 			expect(queries.every(q => q.indexName === 'products')).toBe(true);
+		});
+		
+		test('starts exactly one copy of Alpine', async ({ page }) => {
+			await expect(page.locator('.hit')).toHaveCount(2);
+			expect(await page.evaluate(() => (window as any).alpineStarts)).toBe(1);
 		});
 		
 		test('renders hits with highlight, hit and snippet components', async ({ page }) => {

@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<title>{{ $variant }}</title>
 	@unless($bundle_algolia)
-		<script src="/vendor/algoliasearch.js"></script>
+		<script src="/vendor/{{ $algoliasearch }}.js"></script>
 		<script src="/vendor/instantsearch.js"></script>
 	@endunless
 	@if($app_alpine)

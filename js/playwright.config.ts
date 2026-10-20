@@ -2,7 +2,7 @@ import { defineConfig, devices } from '@playwright/test';
 
 export default defineConfig({
 	testDir: './tests/browser',
-	globalSetup: './tests/browser/global-setup.js',
+	globalSetup: './tests/browser/global-setup.ts',
 	forbidOnly: !!process.env.CI,
 	reporter: process.env.CI ? 'github' : 'list',
 	projects: [

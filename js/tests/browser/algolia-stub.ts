@@ -1,7 +1,17 @@
 // A tiny in-memory stand-in for the Algolia multi-query endpoint. It understands
 // both the v4 (URL-encoded `params` string) and v5 (plain object) request shapes.
 
-export const products = [
+type Product = Record<string, string>;
+type Params = Record<string, any>;
+type FacetFilters = string | Array<string | string[]>;
+
+export interface SearchRequest {
+	indexName: string;
+	params?: string | Params;
+	[key: string]: unknown;
+}
+
+export const products: Product[] = [
 	{ objectID: '1', name: 'iPhone 15', brand: 'Apple', category: 'Phones', description: 'A phone made by Apple with a great camera.' },
 	{ objectID: '2', name: 'Galaxy S24', brand: 'Samsung', category: 'Phones', description: 'A phone made by Samsung with a big screen.' },
 	{ objectID: '3', name: 'MacBook Air', brand: 'Apple', category: 'Laptops', description: 'A thin laptop made by Apple.' },
@@ -9,14 +19,14 @@ export const products = [
 
 export const HITS_PER_PAGE = 2;
 
-function parseParams(request) {
+function parseParams(request: SearchRequest): Params {
 	const { indexName, params, ...rest } = request;
 	
 	if (typeof params !== 'string') {
 		return { ...rest, ...(params || {}) };
 	}
 	
-	const parsed = {};
+	const parsed: Params = {};
 	for (const [key, value] of new URLSearchParams(params)) {
 		try {
 			parsed[key] = JSON.parse(value);
@@ -28,12 +38,12 @@ function parseParams(request) {
 	return parsed;
 }
 
-function matchesFilter(product, filter) {
+function matchesFilter(product: Product, filter: string): boolean {
 	const [attribute, ...value] = filter.split(':');
 	return String(product[attribute]) === value.join(':');
 }
 
-function matchesFacetFilters(product, facetFilters = []) {
+function matchesFacetFilters(product: Product, facetFilters: FacetFilters = []): boolean {
 	const filters = typeof facetFilters === 'string' ? [facetFilters] : facetFilters;
 	
 	return filters.every(filter => Array.isArray(filter)
@@ -41,7 +51,7 @@ function matchesFacetFilters(product, facetFilters = []) {
 		: matchesFilter(product, filter));
 }
 
-function highlight(value, query, pre, post) {
+function highlight(value: string, query: string, pre: string, post: string): string {
 	if (!query) {
 		return value;
 	}
@@ -54,7 +64,7 @@ function highlight(value, query, pre, post) {
 	return value.slice(0, index) + pre + value.slice(index, index + query.length) + post + value.slice(index + query.length);
 }
 
-export function search(request) {
+export function search(request: SearchRequest) {
 	const params = parseParams(request);
 	const query = params.query || '';
 	const page = Number(params.page || 0);
@@ -66,8 +76,8 @@ export function search(request) {
 		.filter(p => p.name.toLowerCase().includes(query.toLowerCase()))
 		.filter(p => matchesFacetFilters(p, params.facetFilters));
 	
-	const requestedFacets = [].concat(params.facets || []);
-	const facets = {};
+	const requestedFacets: string[] = [].concat(params.facets || []);
+	const facets: Record<string, Record<string, number>> = {};
 	for (const facet of requestedFacets) {
 		facets[facet] = {};
 		for (const product of matches) {

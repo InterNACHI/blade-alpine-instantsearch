@@ -1,5 +1,8 @@
 import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
-import factory from '../../src/factory';
+import factory from '../../src/factory.ts';
+import type { InstantSearchFactory, RootComponent, WidgetComponent, WidgetConfig } from '../../src/types.ts';
+
+const $el = {} as HTMLElement;
 
 function setup() {
 	const searchClient = { search: vi.fn() };
@@ -9,17 +12,17 @@ function setup() {
 	const instantsearch = vi.fn(() => search);
 	
 	const connectors = {
-		connectSearchBox: vi.fn(render => widgetParams => ({ $$type: 'ais.searchBox', render, widgetParams })),
-		connectHits: vi.fn(render => widgetParams => ({ $$type: 'ais.hits', render, widgetParams })),
+		connectSearchBox: vi.fn(render => (widgetParams: WidgetConfig) => ({ $$type: 'ais.searchBox', render, widgetParams })),
+		connectHits: vi.fn(render => (widgetParams: WidgetConfig) => ({ $$type: 'ais.hits', render, widgetParams })),
 	};
 	
-	const BladeAlpineInstantSearch = factory(algoliasearch, instantsearch, connectors);
+	const BladeAlpineInstantSearch = factory(algoliasearch, instantsearch as unknown as InstantSearchFactory, connectors);
 	
 	return { BladeAlpineInstantSearch, algoliasearch, searchClient, instantsearch, search, connectors };
 }
 
 // Mimics how Alpine merges a widget's x-data scope with the root component's scope
-function mount(root, data) {
+function mount(root: RootComponent, data: WidgetComponent): WidgetComponent & RootComponent {
 	const scope = Object.create(root);
 	Object.assign(scope, data);
 	return scope;
@@ -32,7 +35,7 @@ describe('BladeAlpineInstantSearch()', () => {
 	test('creates an instantsearch instance from the component config', () => {
 		const { BladeAlpineInstantSearch, algoliasearch, searchClient, instantsearch } = setup();
 		
-		BladeAlpineInstantSearch({}, {
+		BladeAlpineInstantSearch($el, {
 			applicationId: 'APP',
 			searchKey: 'KEY',
 			indexName: 'products',
@@ -52,7 +55,7 @@ describe('BladeAlpineInstantSearch()', () => {
 	test('returns the root Alpine component', () => {
 		const { BladeAlpineInstantSearch, instantsearch } = setup();
 		
-		const root = BladeAlpineInstantSearch({}, { applicationId: 'APP', searchKey: 'KEY', indexName: 'products' });
+		const root = BladeAlpineInstantSearch($el, { applicationId: 'APP', searchKey: 'KEY', indexName: 'products' });
 		
 		expect(root.widgets).toEqual([]);
 		expect(root.instantsearch).toBe(instantsearch);
@@ -62,7 +65,7 @@ describe('BladeAlpineInstantSearch()', () => {
 	
 	test('addWidget() builds a widget from the matching connector', () => {
 		const { BladeAlpineInstantSearch, connectors } = setup();
-		const root = BladeAlpineInstantSearch({}, { applicationId: 'APP', searchKey: 'KEY', indexName: 'products' });
+		const root = BladeAlpineInstantSearch($el, { applicationId: 'APP', searchKey: 'KEY', indexName: 'products' });
 		const render = vi.fn();
 		
 		root.addWidget('SearchBox', { showReset: true }, render);
@@ -73,7 +76,7 @@ describe('BladeAlpineInstantSearch()', () => {
 	
 	test('init() adds widgets and starts searching once child widgets have registered', () => {
 		const { BladeAlpineInstantSearch, search } = setup();
-		const root = BladeAlpineInstantSearch({}, { applicationId: 'APP', searchKey: 'KEY', indexName: 'products' });
+		const root = BladeAlpineInstantSearch($el, { applicationId: 'APP', searchKey: 'KEY', indexName: 'products' });
 		
 		root.init();
 		
@@ -93,7 +96,7 @@ describe('BladeAlpineInstantSearch.widget()', () => {
 	test('returns widget state merged with defaults', () => {
 		const { BladeAlpineInstantSearch } = setup();
 		
-		const widget = BladeAlpineInstantSearch.widget({}, 'SearchBox', { showReset: true }, { query: '', refine: null });
+		const widget = BladeAlpineInstantSearch.widget($el, 'SearchBox', { showReset: true }, { query: '', refine: null });
 		
 		expect(widget).toMatchObject({
 			query: '',
@@ -107,13 +110,13 @@ describe('BladeAlpineInstantSearch.widget()', () => {
 	
 	test('init() registers with the root and copies render options onto the component', () => {
 		const { BladeAlpineInstantSearch, connectors } = setup();
-		const root = BladeAlpineInstantSearch({}, { applicationId: 'APP', searchKey: 'KEY', indexName: 'products' });
-		const widget = mount(root, BladeAlpineInstantSearch.widget({}, 'SearchBox', { showReset: true }, { query: '' }));
+		const root = BladeAlpineInstantSearch($el, { applicationId: 'APP', searchKey: 'KEY', indexName: 'products' });
+		const widget = mount(root, BladeAlpineInstantSearch.widget($el, 'SearchBox', { showReset: true }, { query: '' }));
 		
 		widget.init();
 		
 		expect(root.widgets).toHaveLength(1);
-		expect(root.widgets[0].widgetParams).toEqual({ showReset: true });
+		expect(root.widgets[0]).toMatchObject({ widgetParams: { showReset: true } });
 		
 		const render = connectors.connectSearchBox.mock.calls[0][0];
 		const refine = () => {};
