@@ -1,0 +1,46 @@
+name: JavaScript
+
+on: [ pull_request, push ]
+
+jobs:
+  js-tests:
+    runs-on: ubuntu-latest
+
+    name: Unit and browser tests
+
+    defaults:
+      run:
+        working-directory: js
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.4
+          tools: composer:v2
+
+      - name: Install PHP dependencies
+        working-directory: .
+        run: composer update --no-progress --no-interaction --prefer-dist
+
+      - name: Setup Node
+        uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: yarn
+          cache-dependency-path: js/yarn.lock
+
+      - name: Install JS dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Install Playwright browser
+        run: npx playwright install --with-deps chromium
+
+      - name: Run unit tests
+        run: yarn test
+
+      - name: Run browser tests
+        run: yarn test:browser
