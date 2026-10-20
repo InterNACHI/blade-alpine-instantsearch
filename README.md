@@ -99,3 +99,46 @@ php artisan vendor:publish --tag=instantsearch
 
 And then enable the `renderless` config option which will cause all components to work
 in this mode by default.
+
+### Routing
+
+You can add `routing` to keep the search state in the URL, so a search can be bookmarked
+or shared:
+
+```html
+<x-instantsearch ... routing>
+```
+
+This uses InstantSearch's default
+[routing](https://www.algolia.com/doc/guides/building-search-ui/going-further/routing-urls/js/),
+which nests every key under the index name (`index-name`, or the model's `searchableAs()`),
+like `?products[query]=phone&products[refinementList][brand][0]=Apple&products[page]=2`.
+
+#### Customizing URL Parameters
+
+You can give a widget a `url-param` to keep its state at the top level of the URL under
+that name instead:
+
+```html
+<x-instantsearch ...>
+    <x-instantsearch::search-box url-param="search" />
+    <x-instantsearch::refinement-list attribute="brand" url-param="brand" />
+    <x-instantsearch::pagination url-param="page" />
+</x-instantsearch>
+```
+
+This produces URLs like `?search=phone&brand[0]=Apple&page=2`, and turns on routing without
+the `routing` attribute. The search box, menu, refinement list, and pagination widgets
+support `url-param`. Any widget without a defined param uses its default InstantSearch key,
+which nests it under the index name. Giving two widgets different `url-param` values for
+the same attribute throws an exception.
+
+To map URL parameters to InstantSearch's
+[UI state](https://www.algolia.com/doc/api-reference/widgets/ui-state/js/) directly, you
+can pass an array. It overrides any widget's `url-param` for the same state:
+
+```html
+<x-instantsearch ... :routing="['q' => 'query', 'brand' => 'refinementList.brand']">
+```
+
+To turn URL routing off, even when widgets have a `url-param`, pass `:routing="false"`.

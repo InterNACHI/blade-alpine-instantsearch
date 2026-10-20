@@ -2,14 +2,19 @@
 
 namespace InterNACHI\BladeInstantSearch\Components;
 
+use Illuminate\Support\Arr;
 use Illuminate\Support\HtmlString;
 use Illuminate\Support\Js;
 use Illuminate\Support\Str;
 use Illuminate\View\Component;
 use Illuminate\View\ComponentAttributeBag;
+use InterNACHI\BladeInstantSearch\Facades\BladeInstantSearch;
+use InvalidArgumentException;
 
 abstract class Widget extends Component
 {
+	public ?string $id = null;
+	
 	protected array $widget_config = [];
 	
 	public function resolveView()
@@ -30,6 +35,10 @@ abstract class Widget extends Component
 	
 	public function withAttributes(array $attributes)
 	{
+		if ($url_param = Arr::pull($attributes, 'url-param')) {
+			BladeInstantSearch::currentContext()->addUrlParam($url_param, $this->uiStateKey());
+		}
+		
 		$name = $this->widgetName();
 		$config = Js::from($this->widget_config);
 		$defaults = $this->widgetDefaults();
@@ -56,6 +65,17 @@ abstract class Widget extends Component
 	protected function widgetDefaults(): string
 	{
 		return '{}';
+	}
+	
+	/**
+	 * The widget's key in InstantSearch.js's `uiState` (e.g. `query` or `menu.category`).
+	 * It must match the key InstantSearch.js uses for this widget, or a url-param won't sync.
+	 *
+	 * @see https://www.algolia.com/doc/api-reference/widgets/ui-state/js/
+	 */
+	protected function uiStateKey(): string
+	{
+		throw new InvalidArgumentException('The '.class_basename($this).' widget does not support a url-param.');
 	}
 	
 	protected function widgetName(): string
