@@ -13,6 +13,9 @@ const vendor: Record<string, string> = {
 	'/vendor/algoliasearch-lite.js': require.resolve('algoliasearch/dist/lite/builds/browser.umd.js'),
 	'/vendor/algoliasearch-full.js': require.resolve('algoliasearch/dist/algoliasearch.umd.js'),
 	'/vendor/algoliasearch-v4.js': require.resolve('algoliasearch-v4/dist/algoliasearch-lite.umd.js'),
+	'/vendor/algoliasearch-v3.js': require.resolve('algoliasearch-v3/dist/algoliasearchLite.min.js'),
+	'/vendor/algoliasearch-v3-27.js': require.resolve('algoliasearch-v3-27/dist/algoliasearchLite.min.js'),
+	'/vendor/algoliasearch-v3-full.js': require.resolve('algoliasearch-v3/dist/algoliasearch.min.js'),
 	'/vendor/instantsearch.js': require.resolve('instantsearch.js/dist/instantsearch.production.min.js'),
 	'/vendor/alpine.js': require.resolve('alpinejs/dist/cdn.min.js'),
 };
@@ -30,6 +33,9 @@ const variants = [
 	'root',
 	'root.algoliasearch-full',
 	'root.algoliasearch-v4',
+	'root.algoliasearch-v3',
+	'root.algoliasearch-v3-27',
+	'root.algoliasearch-v3-full',
 ];
 
 for (const variant of variants) {

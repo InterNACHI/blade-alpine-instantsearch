@@ -112,7 +112,8 @@ widgets with `addWidget()`. If you only use this package's components, set
 smaller, gzipped).
 
 If you disable `bundle_algolia`, load the Algolia libraries before the `<x-instantsearch>`
-component. Version 4 and 5 of `algoliasearch` (lite or full build) both work:
+component. Versions 3.27.1 and later of `algoliasearch` work, including v4 and v5 (lite or
+full build):
 
 ```html
 <script src="https://cdn.jsdelivr.net/npm/algoliasearch@5/dist/lite/builds/browser.umd.js"></script>

@@ -9,7 +9,7 @@ declare global {
 }
 
 // Find the search client in whichever algoliasearch build the app loaded:
-//  - v4 (lite or full): window.algoliasearch()
+//  - v3 or v4 (lite or full): window.algoliasearch()
 //  - v5 lite:           window['algoliasearch/lite'].liteClient()
 //  - v5 full:           window.algoliasearch.algoliasearch()
 export function globalSearchClientFactory(): SearchClientFactory {

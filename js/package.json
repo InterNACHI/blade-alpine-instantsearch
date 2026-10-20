@@ -14,6 +14,8 @@
     "@types/alpinejs": "^3.17.0",
     "@types/node": "^26.6.5",
     "algoliasearch": "^5.60.0",
+    "algoliasearch-v3": "npm:algoliasearch@^3.35.1",
+    "algoliasearch-v3-27": "npm:algoliasearch@^3.27.1",
     "algoliasearch-v4": "npm:algoliasearch@^4.27.0",
     "alpinejs": "^3.17.4",
     "instantsearch.js": "^4.120.0",

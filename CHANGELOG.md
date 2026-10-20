@@ -8,7 +8,8 @@ the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) format. This projec
 ### Added
 
 -   Tests for every Blade component, plus JavaScript unit and browser tests
--   Support for `algoliasearch` v5 (and still v4) when `bundle_algolia` is disabled
+-   Support for `algoliasearch` v5 when `bundle_algolia` is disabled (v3.27.1+ and v4 are
+    still supported and now tested)
 -   `bundle_all_connectors` config option: set it to `false` for smaller bundles that only
     include the connectors this package's components use
 

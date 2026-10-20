@@ -27,6 +27,9 @@ $variants = [
 	'root' => [false, false, true, true, 'algoliasearch-lite'],
 	'root.algoliasearch-full' => [false, false, true, true, 'algoliasearch-full'],
 	'root.algoliasearch-v4' => [false, false, true, true, 'algoliasearch-v4'],
+	'root.algoliasearch-v3' => [false, false, true, true, 'algoliasearch-v3'],
+	'root.algoliasearch-v3-27' => [false, false, true, true, 'algoliasearch-v3-27'],
+	'root.algoliasearch-v3-full' => [false, false, true, true, 'algoliasearch-v3-full'],
 ];
 
 $app = Application::create(options: [

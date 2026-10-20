@@ -4,7 +4,7 @@ import { globalInstantSearch, globalSearchClientFactory } from '../../src/global
 describe('globalSearchClientFactory()', () => {
 	afterEach(() => vi.unstubAllGlobals());
 	
-	test('supports algoliasearch v4', () => {
+	test('supports algoliasearch v3 and v4', () => {
 		const algoliasearch = vi.fn();
 		vi.stubGlobal('window', { algoliasearch });
 		
